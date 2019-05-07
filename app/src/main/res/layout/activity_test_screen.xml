@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".test.TestActivityScreen"
+    android:background="@color/md_black_1000_50"
+    android:orientation="vertical"
+    android:id="@+id/fullscreen_content2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/test_activity_screen_app_bar"
+            android:layout_width="match_parent"
+            app:elevation="@dimen/offset_0"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_gravity="top"
+            android:layout_marginTop="24dp">
+
+            <androidx.appcompat.widget.Toolbar
+                app:title="@string/app_name"
+                android:id="@+id/test_activity_screen_tool_bar"
+                app:layout_collapseMode="pin"
+                app:titleTextAppearance="@style/App.TextAppearance.h4.Title"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextColor="@color/tb_image_preview_toolbar_text"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Light">
+                <TextView
+                    android:id="@+id/tb_image_preview_toolbar_txt_count"
+                    android:layout_width="@dimen/length_36"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:gravity="center"
+                    android:layout_marginEnd="@dimen/offset_8"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/tb_image_preview_toolbar_counter_text"
+                    android:background="@drawable/tb_image_preview_dr_rect_round_light_grey"
+                    android:padding="@dimen/offset_4"
+                    android:text="0"
+                    android:textSize="@dimen/font_16"/>
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hide"
+            android:id="@+id/btn_hide"
+            android:layout_gravity="bottom"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show"
+            android:id="@+id/btn_show"
+            android:layout_gravity="bottom|end"/>
+    </LinearLayout>
+
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="dasdasd"
+       android:layout_gravity="bottom"/>
+
+</FrameLayout >

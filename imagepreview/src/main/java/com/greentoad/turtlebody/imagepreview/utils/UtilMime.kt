@@ -1,4 +1,4 @@
-package com.greentoad.turtlebody.imagepreview.util
+package com.greentoad.turtlebody.imagepreview.utils
 
 /**
  * Created by WANGSUN on 14-Mar-19.

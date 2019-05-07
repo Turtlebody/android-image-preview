@@ -1,4 +1,4 @@
-package com.greentoad.turtlebody.imagepreview.util
+package com.greentoad.turtlebody.imagepreview.utils
 
 import java.util.concurrent.TimeUnit
 

@@ -1,4 +1,4 @@
-package com.greentoad.turtlebody.imagepreview.util
+package com.greentoad.turtlebody.imagepreview.utils
 
 import android.annotation.SuppressLint
 import android.content.ContentUris
@@ -15,7 +15,7 @@ import java.net.URISyntaxException
 /**
  * Created by niraj on 18-10-2018.
  */
-object UtilsFile {
+object UtilFile {
 
     @SuppressLint("NewApi")
     @Throws(URISyntaxException::class)

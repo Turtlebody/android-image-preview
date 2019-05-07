@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator_layout"
+    android:id="@+id/activity_lib_main_parent_fl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tb_image_preview_background"
@@ -20,8 +21,7 @@
         app:elevation="@dimen/offset_0"
         android:layout_height="wrap_content"
         android:background="@drawable/tb_image_preview_dr_rect_gradient_black_white"
-        android:layout_gravity="top"
-        android:paddingTop="@dimen/offset_16">
+        android:layout_gravity="top">
 
         <androidx.appcompat.widget.Toolbar
             app:title="@string/app_name"
