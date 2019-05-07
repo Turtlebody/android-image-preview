@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tb_image_preview_background"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/tb_image_preview_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/activity_lib_main_app_bar"
+        android:layout_width="match_parent"
+        app:elevation="@dimen/offset_0"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tb_image_preview_dr_rect_gradient_black_white"
+        android:layout_gravity="top"
+        android:paddingTop="@dimen/offset_16">
+
+        <androidx.appcompat.widget.Toolbar
+            app:title="@string/app_name"
+            android:id="@+id/tb_image_preview_activity_toolbar"
+            app:layout_collapseMode="pin"
+            app:titleTextAppearance="@style/App.TextAppearance.h4.Title"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="@color/tb_image_preview_toolbar_text"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Light">
+            <TextView
+                android:id="@+id/tb_image_preview_toolbar_txt_count"
+                android:layout_width="@dimen/length_36"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/offset_8"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/tb_image_preview_toolbar_counter_text"
+                android:background="@drawable/tb_image_preview_dr_rect_round_light_grey"
+                android:padding="@dimen/offset_4"
+                android:text="0"
+                android:textSize="@dimen/font_16"/>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/tb_image_preview_activity_lib_ll"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tb_image_preview_dr_rect_gradient_white_black"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/length_28"
+            android:layout_height="@dimen/length_28"
+            app:srcCompat="@drawable/ic_square_add_white"
+            android:layout_margin="@dimen/offset_12" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/md_grey_600"
+            android:layout_marginTop="@dimen/offset_12"
+            android:layout_marginBottom="@dimen/offset_12"
+            android:layout_marginEnd="@dimen/offset_8"
+            android:layout_marginRight="@dimen/offset_8" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tb_image_preview_recyclerview_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="@dimen/length_36"
+            android:layout_height="@dimen/length_36"
+            app:srcCompat="@drawable/ic_done_black_24dp"
+            android:background="@drawable/tb_image_preview_dr_rect_round_accent"
+            android:padding="@dimen/offset_8"
+            android:layout_margin="@dimen/offset_12" />
+    </LinearLayout>
+
+    <include layout="@layout/tb_image_preview_frame_progress" />
+</FrameLayout>
