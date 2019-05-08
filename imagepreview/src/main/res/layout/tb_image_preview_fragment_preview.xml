@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_lib_main_parent_fl"
+    android:id="@+id/preview_fragment_parent_fl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tb_image_preview_background"
@@ -11,12 +11,12 @@
     android:focusable="true">
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/tb_image_preview_viewpager"
+        android:id="@+id/preview_fragment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/activity_lib_main_app_bar"
+        android:id="@+id/preview_fragment_app_bar"
         android:layout_width="match_parent"
         app:elevation="@dimen/offset_0"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
 
         <androidx.appcompat.widget.Toolbar
             app:title="@string/app_name"
-            android:id="@+id/tb_image_preview_activity_toolbar"
+            android:id="@+id/preview_fragment_activity_toolbar"
             app:layout_collapseMode="pin"
             app:titleTextAppearance="@style/App.TextAppearance.h4.Title"
             app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -34,7 +34,7 @@
             android:layout_height="?android:attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
             <TextView
-                android:id="@+id/tb_image_preview_toolbar_txt_count"
+                android:id="@+id/preview_fragment_toolbar_txt_count"
                 android:layout_width="@dimen/length_36"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
@@ -51,7 +51,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        android:id="@+id/tb_image_preview_activity_lib_ll"
+        android:id="@+id/preview_fragment_bottom_ll"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
         android:layout_height="wrap_content"
@@ -59,28 +59,32 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
+
         <ImageView
+            android:id="@+id/preview_fragment_main_add_btn"
             android:layout_width="@dimen/length_28"
             android:layout_height="@dimen/length_28"
             app:srcCompat="@drawable/ic_square_add_white"
-            android:layout_margin="@dimen/offset_12" />
+            android:layout_margin="@dimen/offset_12"/>
 
         <View
+            android:id="@+id/preview_fragment_main_vertical_line"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/md_grey_600"
             android:layout_marginTop="@dimen/offset_12"
-            android:layout_marginBottom="@dimen/offset_12"
-            android:layout_marginEnd="@dimen/offset_8"
-            android:layout_marginRight="@dimen/offset_8" />
+            android:layout_marginBottom="@dimen/offset_12" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tb_image_preview_recyclerview_horizontal"
+            android:layout_marginStart="@dimen/offset_12"
+            android:layout_marginLeft="@dimen/offset_12"
+            android:id="@+id/preview_fragment_recyclerview_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/preview_fragment_iv_done"
             android:layout_width="@dimen/length_36"
             android:layout_height="@dimen/length_36"
             app:srcCompat="@drawable/ic_done_black_24dp"
@@ -90,4 +94,6 @@
     </LinearLayout>
 
     <include layout="@layout/tb_image_preview_frame_progress" />
+
+
 </FrameLayout>

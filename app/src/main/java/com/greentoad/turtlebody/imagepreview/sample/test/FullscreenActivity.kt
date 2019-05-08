@@ -85,22 +85,34 @@ class FullscreenActivity : AppCompatActivity() {
         supportActionBar?.hide()
         fullscreen_content_controls.visibility = View.GONE
         mVisible = false
+        fullscreen_content.systemUiVisibility =
+                //View.SYSTEM_UI_FLAG_LOW_PROFILE or
+            View.SYSTEM_UI_FLAG_FULLSCREEN or
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 
         // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable)
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY.toLong())
+//        mHideHandler.removeCallbacks(mShowPart2Runnable)
+//        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY.toLong())
     }
 
     private fun show() {
         // Show the system bar
+        supportActionBar?.show()
+
         fullscreen_content.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         mVisible = true
 
+
+        fullscreen_content_controls.visibility = View.VISIBLE
+
         // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable)
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY.toLong())
+//        mHideHandler.removeCallbacks(mHidePart2Runnable)
+//        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY.toLong())
     }
 
     /**

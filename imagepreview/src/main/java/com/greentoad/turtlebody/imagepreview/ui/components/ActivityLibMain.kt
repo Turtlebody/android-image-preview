@@ -1,15 +1,12 @@
 package com.greentoad.turtlebody.imagepreview.ui.components
 
-import android.app.Dialog
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.greentoad.turtlebody.imagepreview.R
-import kotlinx.android.synthetic.main.tb_image_preview_activity_lib_main.*
+import kotlinx.android.synthetic.main.tb_image_preview_fragment_preview.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -27,7 +24,7 @@ class ActivityLibMain : AppCompatActivity(),AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tb_image_preview_activity_lib_main)
+        setContentView(R.layout.tb_image_preview_fragment_preview)
 
         if(intent.extras!=null){
             mList = intent.getSerializableExtra(B_ARG_URI_LIST) as ArrayList<Uri>
@@ -38,27 +35,18 @@ class ActivityLibMain : AppCompatActivity(),AnkoLogger {
     private fun initAdapter() {
         mImageAdapter = ImageAdapter()
         mImageAdapter.setData(mList)
-        tb_image_preview_recyclerview_horizontal.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        tb_image_preview_recyclerview_horizontal.adapter = mImageAdapter
+        preview_fragment_recyclerview_horizontal.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        preview_fragment_recyclerview_horizontal.adapter = mImageAdapter
 
         mPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         mPagerAdapter.setData(mList)
-        tb_image_preview_viewpager.adapter = mPagerAdapter
-        tb_image_preview_viewpager.addOnPageChangeListener(object: ViewPager.SimpleOnPageChangeListener() {
+        preview_fragment_viewpager.adapter = mPagerAdapter
+        preview_fragment_viewpager.addOnPageChangeListener(object: ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 info { "page selected: $position" }
             }
         })
 
-    }
-
-    fun ww(){
-
-       // Window
-        //var phw = PhoneWindow()
-//        DialogFragment
-//        Dialog
-//        var a = PhoneWindow
     }
 }

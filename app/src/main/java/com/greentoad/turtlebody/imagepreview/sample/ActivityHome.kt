@@ -20,6 +20,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 import android.view.ViewConfiguration
+import com.greentoad.turtlebody.imagepreview.core.ImagePreviewConfig
 import com.greentoad.turtlebody.imagepreview.sample.test.TestActivityScreen
 import com.greentoad.turtlebody.imagepreview.utils.UtilFunction.hasSoftKeys
 
@@ -81,12 +82,10 @@ class ActivityHome : AppCompatActivity(),AnkoLogger {
 
     private fun startActivityLibMain(it: ArrayList<Uri>) {
         mImagePreview.setUris(it)
+            .setConfig(
+                ImagePreviewConfig().setAllowButton(true)
+            )
             .onResult()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-       // mImagePreview.setOriginalState()
     }
 
 }
