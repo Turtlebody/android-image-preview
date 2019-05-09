@@ -1,6 +1,5 @@
 package com.greentoad.turtlebody.imagepreview.core
 
-import android.view.View
 import java.io.Serializable
 
 /**

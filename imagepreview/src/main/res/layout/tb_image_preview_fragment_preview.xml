@@ -75,13 +75,32 @@
             android:layout_marginTop="@dimen/offset_12"
             android:layout_marginBottom="@dimen/offset_12" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <FrameLayout
             android:layout_marginStart="@dimen/offset_12"
             android:layout_marginLeft="@dimen/offset_12"
-            android:id="@+id/preview_fragment_recyclerview_horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/preview_fragment_recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="@dimen/length_28"
+                android:layout_height="@dimen/length_44"
+                android:layout_gravity="start|center_vertical"
+                android:background="@drawable/tb_image_preview_dr_rect_gradient_black_white_horizontal"/>
+
+            <View
+                android:layout_width="@dimen/length_24"
+                android:layout_height="@dimen/length_44"
+                android:layout_gravity="end|center_vertical"
+                android:background="@drawable/tb_image_preview_dr_rect_gradient_white_black_horizontal"/>
+        </FrameLayout>
+
+
 
         <ImageView
             android:id="@+id/preview_fragment_iv_done"

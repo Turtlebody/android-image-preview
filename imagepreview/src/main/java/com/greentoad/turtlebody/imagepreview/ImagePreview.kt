@@ -1,17 +1,13 @@
 package com.greentoad.turtlebody.imagepreview
 
 import android.app.Dialog
-import android.content.Context
-import android.graphics.Point
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.KeyEvent.KEYCODE_BACK
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +21,6 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.io.Serializable
 import java.lang.ref.WeakReference
-import java.lang.reflect.InvocationTargetException
 
 
 /**
@@ -60,22 +55,19 @@ class ImagePreview {
             return this
         }
 
-        override fun onData(data: ArrayList<Uri>) {
+        override fun onDone(data: ArrayList<Uri>) {
         }
 
-        override fun onCancel(message: String) {}
-
-        override fun onAddBtnClicked() {
-        }
+        override fun onAddBtnClicked() {}
 
         override fun onBackPressed() {
             setOriginalState()
         }
 
-        override fun onPagerClicked(isVisible: Boolean) {
-            if (isVisible) { show() }
-            else { hide() }
-        }
+//        override fun onPagerClicked(isVisible: Boolean) {
+//            if (isVisible) { show() }
+//            else { hide() }
+//        }
 
         private fun show() {
             mActivity.get()?.window?.decorView?.systemUiVisibility = flag or
@@ -153,12 +145,10 @@ class ImagePreview {
 
             val fragmentManager = activity.supportFragmentManager
             val newFragment = PreviewFragment.newInstance(999, bundle)
-            //newFragment.arguments = bundle
             newFragment.setListener(this)
 
             val transaction = fragmentManager.beginTransaction()
-            transaction
-                .add(android.R.id.content, newFragment)
+            transaction.add(android.R.id.content, newFragment)
                 .addToBackStack(null)
                 .commit()
         }
@@ -212,7 +202,6 @@ class ImagePreview {
                     return false
                 }
             })
-
             return view
         }
 
@@ -241,7 +230,7 @@ class ImagePreview {
                 mOnImagePreviewListener?.onAddBtnClicked()
             }
             preview_fragment_iv_done.setOnClickListener {
-                mOnImagePreviewListener?.onData(mList)
+                mOnImagePreviewListener?.onDone(mList)
             }
 
             preview_fragment_activity_toolbar.setNavigationOnClickListener {
@@ -358,10 +347,9 @@ class ImagePreview {
         }
 
         interface OnImagePreviewListener {
-            fun onData(data: ArrayList<Uri>)
-            fun onCancel(message: String)
+            fun onDone(data: ArrayList<Uri>)
             fun onBackPressed()
-            fun onPagerClicked(isVisible: Boolean)
+            //fun onPagerClicked(isVisible: Boolean)
             fun onAddBtnClicked()
         }
     }
