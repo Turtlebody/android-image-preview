@@ -30,12 +30,6 @@
     </style>
 
     <!--Text -->
-    <style name="TextTitle" parent="App.TextAppearance.h4.Title">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">start</item>
-    </style>
-
     <style name="TextNormal" parent="App.TextAppearance.Text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
