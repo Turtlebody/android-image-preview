@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
+        android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
         app:elevation="@dimen/offset_0">
 
@@ -56,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/offset_16"
+        android:layout_margin="@dimen/offset_4"
         android:text="Full Screen" />
 
     <Button
@@ -64,6 +65,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/offset_16"
+        android:layout_margin="@dimen/offset_4"
         android:text="Full Screen" />
+
+
+    <FrameLayout
+        android:layout_margin="@dimen/offset_4"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/pic_blur_back_2"
+            tools:src="@drawable/pic_blur_back_2"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    <FrameLayout
+        android:layout_marginStart="@dimen/offset_12"
+        android:layout_marginEnd="@dimen/offset_12"
+        android:layout_marginTop="@dimen/offset_12"
+        android:layout_marginBottom="@dimen/offset_24"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:layout_gravity="end|bottom"
+            android:layout_width="@dimen/offset_140"
+            android:layout_height="@dimen/offset_140">
+            <ImageView
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_rectangle_top"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </FrameLayout>
+    </FrameLayout>
+    </FrameLayout>
 </LinearLayout>

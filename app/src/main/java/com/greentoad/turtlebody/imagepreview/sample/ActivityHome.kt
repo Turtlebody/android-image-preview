@@ -20,6 +20,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 import android.view.ViewConfiguration
+import com.bumptech.glide.Glide
 import com.greentoad.turtlebody.imagepreview.core.ImagePreviewConfig
 import com.greentoad.turtlebody.imagepreview.sample.test.TestActivityScreen
 import com.greentoad.turtlebody.imagepreview.utils.UtilFunction.hasSoftKeys
@@ -37,6 +38,7 @@ class ActivityHome : AppCompatActivity(),AnkoLogger {
         //setSupportActionBar(activity_home_tool_bar)
         initButton()
 
+        Glide.with(this).load(R.drawable.pic_image).into(image_view)
         info { "softKey: ${hasSoftKeys(this)}" }
     }
 
