@@ -36,8 +36,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 
     //blurr
-    implementation 'com.eightbitlab:blurview:1.6.1'
-    implementation 'com.eightbitlab:supportrenderscriptblur:1.0.2'
+    //implementation 'com.eightbitlab:blurview:1.6.1'
+    //implementation 'com.eightbitlab:supportrenderscriptblur:1.0.2'
+
+    implementation 'com.github.mmin18:realtimeblurview:1.1.2'
 
 
     implementation project(path: ':imagepreview')

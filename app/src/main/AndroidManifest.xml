@@ -11,9 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".test.TestActivityScreen">
-
-        </activity>
+        <activity android:name=".test.TestActivityJava"></activity>
+        <activity android:name=".test.TestActivityScreen"></activity>
         <activity
             android:name=".test.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/md_white_1000">
 
     <TextView
         style="@style/TextNormal"
@@ -13,22 +13,31 @@
         android:layout_marginLeft="@dimen/offset_28"
         android:layout_marginTop="@dimen/offset_30"
         android:text="Image Preview"
-        android:textSize="@dimen/font_20" />
+        android:textSize="@dimen/font_20"
+        android:textColor="@color/md_black_1000"/>
 
     <TextView
         style="@style/TextNormal"
         android:layout_marginStart="@dimen/offset_28"
         android:layout_marginLeft="@dimen/offset_28"
-        android:layout_marginTop="@dimen/offset_8"
+        android:layout_marginTop="@dimen/offset_6"
         android:text="Example to view images"
         android:textColor="@color/md_grey_400"
-        android:textSize="@dimen/font_18" />
+        android:textSize="@dimen/font_16" />
 
     <FrameLayout
-        android:id="@+id/rootview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/offset_12">
+        android:layout_marginTop="@dimen/offset_20">
+
+        <ImageView
+            android:id="@+id/activity_home_background_blur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/offset_4"
+            android:layout_marginEnd="@dimen/offset_4"
+            android:scaleType="fitXY"
+            android:src="@drawable/pic_blur_back"/>
 
         <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
             android:layout_width="match_parent"
@@ -36,122 +45,123 @@
             app:bottom_left_corner_radius="8dp"
             app:bottom_right_corner_radius="8dp"
             app:top_left_corner_radius="8dp"
-            app:top_right_corner_radius="8dp">
+            app:top_right_corner_radius="8dp"
+            android:layout_marginTop="@dimen/offset_12"
+            android:layout_marginStart="@dimen/offset_24"
+            android:layout_marginEnd="@dimen/offset_24"
+            android:layout_marginBottom="@dimen/offset_24">
 
             <ImageView
-                android:id="@+id/image_view"
+                android:id="@+id/activity_home_background_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/pic_image" />
-
-        </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="@dimen/length_36"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/offset_30">
 
                 <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="1dp"
                     app:bottom_left_corner_radius="0dp"
                     app:bottom_right_corner_radius="0dp"
                     app:top_left_corner_radius="8dp"
-                    app:top_right_corner_radius="8dp">
+                    app:top_right_corner_radius="8dp"
+                    android:layout_gravity="end"
+                    android:layout_marginBottom="@dimen/offset_1">
 
-                    <eightbitlab.com.blurview.BlurView
-                        android:id="@+id/blurView"
+                    <FrameLayout
                         android:layout_width="@dimen/length_128"
                         android:layout_height="@dimen/length_128"
-                        app:blurOverlayColor="@color/md_white_1000_20">
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/sc_ripple_black_alpha_25"
+                        android:id="@+id/activity_home_single_image">
 
-                        <FrameLayout
+                        <com.github.mmin18.widget.RealtimeBlurView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:realtimeBlurRadius="2dp"
+                            app:realtimeOverlayColor="@color/md_white_1000_20" />
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/length_24"
+                                android:layout_height="@dimen/length_24"
+                                android:layout_marginBottom="@dimen/length_16"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/ic_framed_image"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
                                 android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="@dimen/length_20"
-                                    android:layout_height="@dimen/length_20"
-                                    android:layout_marginBottom="@dimen/length_16"
-                                    android:scaleType="centerInside"
-                                    app:srcCompat="@drawable/ic_framed_image" />
+                                <TextView
+                                    style="@style/TestStyle"
+                                    android:text="Single" />
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        style="@style/TestStyle"
-                                        android:text="Single" />
-
-                                    <TextView
-                                        style="@style/TestStyle"
-                                        android:text="Image         " />
-
-                                </LinearLayout>
+                                <TextView
+                                    style="@style/TestStyle"
+                                    android:text="Image        " />
                             </LinearLayout>
-                        </FrameLayout>
-                    </eightbitlab.com.blurview.BlurView>
+                        </LinearLayout>
 
+                    </FrameLayout>
                 </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
-            </FrameLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="0.5dp"
-                    android:layout_marginRight="0.5dp"
-                    app:bottom_left_corner_radius="8dp"
-                    app:bottom_right_corner_radius="0dp"
-                    app:top_left_corner_radius="8dp"
-                    app:top_right_corner_radius="0dp">
+                    android:orientation="horizontal">
 
-                    <eightbitlab.com.blurview.BlurView
-                        android:id="@+id/blurView2"
-                        android:layout_width="@dimen/length_128"
-                        android:layout_height="@dimen/length_128"
-                        app:blurOverlayColor="@color/md_white_1000_20">
+                    <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bottom_left_corner_radius="8dp"
+                        app:bottom_right_corner_radius="0dp"
+                        app:top_left_corner_radius="8dp"
+                        app:top_right_corner_radius="0dp"
+                        android:layout_marginEnd="0.5dp"
+                        android:layout_marginRight="0.5dp">
 
                         <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_width="@dimen/length_128"
+                            android:layout_height="@dimen/length_128"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/sc_ripple_black_alpha_25"
+                            android:id="@+id/activity_home_with_add_btn">
+
+                            <com.github.mmin18.widget.RealtimeBlurView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:realtimeBlurRadius="2dp"
+                                app:realtimeOverlayColor="@color/md_white_1000_20" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="@dimen/length_20"
-                                    android:layout_height="@dimen/length_20"
+                                    android:layout_width="@dimen/length_24"
+                                    android:layout_height="@dimen/length_24"
                                     android:layout_marginBottom="@dimen/length_16"
                                     android:scaleType="centerInside"
-                                    app:srcCompat="@drawable/ic_square_add_white" />
+                                    app:srcCompat="@drawable/ic_square_add_white"/>
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -167,37 +177,40 @@
                                         style="@style/TestStyle"
                                         android:text="Add Button" />
                                 </LinearLayout>
-
-
                             </LinearLayout>
+
                         </FrameLayout>
 
+                    </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
 
-                    </eightbitlab.com.blurview.BlurView>
-                </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
-
-                <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:bottom_left_corner_radius="0dp"
-                    app:bottom_right_corner_radius="8dp"
-                    app:top_left_corner_radius="0dp"
-                    app:top_right_corner_radius="0dp">
-
-                    <eightbitlab.com.blurview.BlurView
-                        android:id="@+id/blurView3"
-                        android:layout_width="@dimen/length_128"
-                        android:layout_height="@dimen/length_128"
-                        app:blurOverlayColor="@color/md_white_1000_20">
+                    <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:bottom_left_corner_radius="0dp"
+                        app:bottom_right_corner_radius="8dp"
+                        app:top_left_corner_radius="0dp"
+                        app:top_right_corner_radius="0dp"
+                        android:layout_marginStart="0.5dp"
+                        android:layout_marginLeft="0.5dp">
 
                         <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_width="@dimen/length_128"
+                            android:layout_height="@dimen/length_128"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/sc_ripple_black_alpha_25"
+                            android:id="@+id/activity_home_without_add_btn">
+
+                            <com.github.mmin18.widget.RealtimeBlurView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:realtimeBlurRadius="2dp"
+                                app:realtimeOverlayColor="@color/md_white_1000_20" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -219,14 +232,19 @@
                                     <TextView
                                         style="@style/TestStyle"
                                         android:text="Add Button" />
-
                                 </LinearLayout>
                             </LinearLayout>
+
                         </FrameLayout>
-                    </eightbitlab.com.blurview.BlurView>
-                </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
+
+                    </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
+                </LinearLayout>
+
             </LinearLayout>
-        </LinearLayout>
+        </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
+
+
+
 
     </FrameLayout>
 </LinearLayout>

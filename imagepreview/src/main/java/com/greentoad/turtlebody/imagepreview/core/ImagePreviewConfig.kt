@@ -9,7 +9,7 @@ class ImagePreviewConfig: Serializable {
     var mAllowAddButton: Boolean = false
     private set // the setter is private and has the default implementation
 
-    fun setAllowButton(value: Boolean): ImagePreviewConfig{
+    fun setAllowAddButton(value: Boolean): ImagePreviewConfig{
         mAllowAddButton = value
         return this
     }

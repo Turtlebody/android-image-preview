@@ -2,8 +2,8 @@ package com.greentoad.turtlebody.imagepreview.sample
 
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,11 +13,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
-import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.greentoad.turtlebody.imagepreview.ImagePreview
 import com.greentoad.turtlebody.imagepreview.core.ImagePreviewConfig
 import com.greentoad.turtlebody.mediapicker.MediaPicker
@@ -32,20 +27,22 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
     private var mImagePreview = ImagePreview.with(this)
 
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         initStatusBar()
 
-
-
-        //setSupportActionBar(activity_home_tool_bar)
         initButton()
 
-        Glide.with(this).load(R.drawable.pic_image)
-            .listener(object : RequestListener<Drawable> {
+        Glide.with(this)
+            .load(R.drawable.pic_image)
+            .into(activity_home_background_image)
+
+    }
+
+    /*
+      .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
@@ -54,7 +51,6 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
                 ): Boolean {
                     return false
                 }
-
                 override fun onResourceReady(
                     resource: Drawable?,
                     model: Any?,
@@ -62,63 +58,57 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    //blurr()
                     return false
                 }
 
             })
-            .into(image_view)
-
-        setUpBlur()
-
-    }
-
-
-
-    private fun setUpBlur() {
-        val radius = 2f
-        val windowBackground = window.decorView.background
-
-        blurView.setupWith(root)
-            .setFrameClearDrawable(windowBackground)
-            .setBlurAlgorithm(SupportRenderScriptBlur(this))
-            .setBlurRadius(radius)
-            .setHasFixedTransformationMatrix(true)
-
-        blurView3.setupWith(root)
-            .setFrameClearDrawable(windowBackground)
-            .setBlurAlgorithm(SupportRenderScriptBlur(this))
-            .setBlurRadius(radius)
-            .setHasFixedTransformationMatrix(true)
-
-        blurView2.setupWith(root)
-            .setFrameClearDrawable(windowBackground)
-            .setBlurAlgorithm(SupportRenderScriptBlur(this))
-            .setBlurRadius(radius)
-            .setHasFixedTransformationMatrix(true)
-    }
+     */
 
     private fun initButton() {
-//        activity_home_picker_btn.setOnClickListener {
-//            startMediaPicker()
-//        }
-//
-//        activity_home_full_screen_btn.setOnClickListener {
-//            startActivity<FullscreenActivity>()
-//        }
-//
-//        activity_home_full_screen_btn2.setOnClickListener {
-//            startActivity<TestActivityScreen>()
-//        }
+        activity_home_single_image.setOnClickListener {
+            startMediaPickerSingleImage()
+        }
+
+        activity_home_with_add_btn.setOnClickListener {
+            startMediaPickerMultiImages(true)
+        }
+
+        activity_home_without_add_btn.setOnClickListener {
+            startMediaPickerMultiImages(false)
+        }
 
     }
 
     @SuppressLint("CheckResult")
-    private fun startMediaPicker() {
+    private fun startMediaPickerSingleImage() {
         MediaPicker.with(this, MediaPicker.MediaTypes.IMAGE)
             .setConfig(
                 MediaPickerConfig()
-                    .setUriPermanentAccess(false)
+                    .setUriPermanentAccess(true)
+                    .setAllowMultiSelection(false)
+                    .setShowConfirmationDialog(true)
+            )
+            .setFileMissingListener(object : MediaPicker.MediaPickerImpl.OnMediaListener {
+                override fun onMissingFileWarning() {
+                    Toast.makeText(this@ActivityHome, "some file is missing", Toast.LENGTH_LONG).show()
+                }
+            })
+            .onResult()
+            .subscribe({
+                info { "success: $it" }
+                info { "list size: ${it.size}" }
+                startSingleImagePreview(it)
+            }, {
+                info { "error: $it" }
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    private fun startMediaPickerMultiImages(allowAddBtn: Boolean) {
+        MediaPicker.with(this, MediaPicker.MediaTypes.IMAGE)
+            .setConfig(
+                MediaPickerConfig()
+                    .setUriPermanentAccess(true)
                     .setAllowMultiSelection(true)
                     .setShowConfirmationDialog(true)
             )
@@ -131,32 +121,58 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
             .subscribe({
                 info { "success: $it" }
                 info { "list size: ${it.size}" }
-                startActivityLibMain(it)
+                if(allowAddBtn){
+                    startMultiImagePreviewWithAddBtn(it)
+                }
+                else{
+                    startMultiImagePreviewWithoutAddBtn(it)
+                }
+
             }, {
                 info { "error: $it" }
             })
     }
 
-    private fun startActivityLibMain(it: ArrayList<Uri>) {
-        mImagePreview.setUris(it)
-            .setConfig(
-                ImagePreviewConfig().setAllowButton(true)
-            )
+
+    private fun startSingleImagePreview(list: ArrayList<Uri>) {
+        mImagePreview.setUris(list)
+            //if you send single uri(image)..then regardless of what you set allowBtn..addButton and bottom recyclerView will be invisible
+            .setConfig(ImagePreviewConfig().setAllowAddButton(true))
+            .onResult()
+    }
+
+    private fun startMultiImagePreviewWithAddBtn(list: ArrayList<Uri>) {
+        mImagePreview.setUris(list)
+            .setConfig(ImagePreviewConfig().setAllowAddButton(true))
+            .onResult()
+    }
+
+    private fun startMultiImagePreviewWithoutAddBtn(list: ArrayList<Uri>) {
+        mImagePreview.setUris(list)
+            .setConfig(ImagePreviewConfig().setAllowAddButton(false))
             .onResult()
     }
 
 
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initStatusBar() {
+
+        info { "status: ${window.statusBarColor}" }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.md_white_1000)
+
+            info { "status2: ${window.statusBarColor}" }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var flags = window.decorView.systemUiVisibility
             flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             window.decorView.systemUiVisibility = flags
-            window.statusBarColor = Color.WHITE
-        }
+            window.statusBarColor = Color.WHITE}
+
+        info { "status3: ${window.statusBarColor}" }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.greentoad.turtlebody.imagepreview
 
 import android.app.Dialog
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +22,9 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.io.Serializable
 import java.lang.ref.WeakReference
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+
 
 
 /**
@@ -40,6 +44,8 @@ class ImagePreview {
 
         private var flag: Int = 0
         private var mNavigationalBarColor: Int = 0
+        private var mOriginalFlag: Int = 0
+        private var mStatusBarColor: Int = 0
         private var mPreviewConfig: ImagePreviewConfig = ImagePreviewConfig()
 
         private var mActivity: WeakReference<FragmentActivity> = WeakReference(activity)
@@ -112,9 +118,16 @@ class ImagePreview {
                 it.window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     mNavigationalBarColor = it.window.navigationBarColor
                     it.window.navigationBarColor = ContextCompat.getColor(it,R.color.md_black_1000_75)
+
+                    //status bar
+                    mStatusBarColor = it.window.statusBarColor
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                        mOriginalFlag = it.window.decorView.systemUiVisibility
+                    }
+                    initStatusBar()
                 }
             }
         }
@@ -126,15 +139,37 @@ class ImagePreview {
                     it.supportActionBar?.show()
                 }
                 it.window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     it.window.navigationBarColor = mNavigationalBarColor
+
+                    //status
+                    it.window.statusBarColor = mStatusBarColor
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                        it.window.decorView.systemUiVisibility = mOriginalFlag
+                        it.window.statusBarColor = mStatusBarColor
+                    }
+                }
             }
 //            flag?.let {
 //                mActivity.get()?.window?.decorView?.systemUiVisibility = it or
 //                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
 //                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 //            }
+        }
+
+        private fun initStatusBar() {
+            mActivity.get()?.let {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    it.window.statusBarColor = ContextCompat.getColor(it, R.color.md_black_1000)
+                }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    var flags = it.window.decorView.systemUiVisibility
+                    flags = flags and  View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                    it.window.decorView.systemUiVisibility = flags
+                    it.window.statusBarColor = Color.BLACK
+                }
+            }
         }
 
 
