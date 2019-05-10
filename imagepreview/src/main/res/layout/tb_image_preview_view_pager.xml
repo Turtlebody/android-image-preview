@@ -6,7 +6,7 @@
 
 
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-        android:id="@+id/tb_image_preview_view_pager_iv"
+        android:id="@+id/view_pager_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"/>

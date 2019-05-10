@@ -8,7 +8,7 @@
 
     <ImageView
         android:padding="@dimen/offset_2"
-        android:id="@+id/tb_image_preview_item_image_iv"
+        android:id="@+id/item_image_iv"
         android:layout_width="@dimen/length_44"
         android:layout_height="@dimen/length_44"
         android:scaleType="centerCrop"

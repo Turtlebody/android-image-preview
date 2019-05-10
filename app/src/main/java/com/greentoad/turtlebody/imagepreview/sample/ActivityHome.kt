@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
+import androidx.documentfile.provider.DocumentFile
 import com.bumptech.glide.Glide
 import com.greentoad.turtlebody.imagepreview.ImagePreview
 import com.greentoad.turtlebody.imagepreview.core.ImagePreviewConfig
@@ -20,6 +22,7 @@ import com.greentoad.turtlebody.mediapicker.core.MediaPickerConfig
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import java.io.File
 
 
 class ActivityHome : AppCompatActivity(), AnkoLogger {
@@ -138,18 +141,47 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
         mImagePreview.setUris(list)
             //if you send single uri(image)..then regardless of what you set allowBtn..addButton and bottom recyclerView will be invisible
             .setConfig(ImagePreviewConfig().setAllowAddButton(true))
+            .setListener(object : ImagePreview.PreviewFragmentImpl.OnImagePreviewListener{
+                override fun onDone(data: ArrayList<Uri>) {
+                    info { "data: $data" }
+                }
+
+                override fun onAddBtnClicked() {
+                    info { "addBtn clicked" }
+                }
+            })
             .onResult()
     }
 
     private fun startMultiImagePreviewWithAddBtn(list: ArrayList<Uri>) {
         mImagePreview.setUris(list)
             .setConfig(ImagePreviewConfig().setAllowAddButton(true))
+            .setListener(object : ImagePreview.PreviewFragmentImpl.OnImagePreviewListener{
+                override fun onDone(data: ArrayList<Uri>) {
+                    info { "data: $data" }
+                }
+
+                override fun onAddBtnClicked() {
+                    info { "addBtn clicked" }
+                }
+            })
             .onResult()
     }
 
     private fun startMultiImagePreviewWithoutAddBtn(list: ArrayList<Uri>) {
         mImagePreview.setUris(list)
             .setConfig(ImagePreviewConfig().setAllowAddButton(false))
+            .setListener(object : ImagePreview.PreviewFragmentImpl.OnImagePreviewListener{
+                override fun onDone(data: ArrayList<Uri>) {
+                    info { "data: $data" }
+
+                    //info { "data size: ${DocumentFile.fromSingleUri(this@ActivityHome,data[0])!!.length()}" }
+                }
+
+                override fun onAddBtnClicked() {
+                    info { "addBtn clicked" }
+                }
+            })
             .onResult()
     }
 
@@ -170,9 +202,14 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
             var flags = window.decorView.systemUiVisibility
             flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             window.decorView.systemUiVisibility = flags
-            window.statusBarColor = Color.WHITE}
+            window.statusBarColor = Color.WHITE
+        }
 
         info { "status3: ${window.statusBarColor}" }
+    }
+
+    fun fileSize(uri: Uri){
+        var a = File(uri.path).length()
     }
 
 }

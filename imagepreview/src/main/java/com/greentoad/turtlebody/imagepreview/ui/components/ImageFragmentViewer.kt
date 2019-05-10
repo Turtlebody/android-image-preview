@@ -12,7 +12,6 @@ import com.greentoad.turtlebody.imagepreview.R
 import com.greentoad.turtlebody.imagepreview.ui.components.ViewPagerAdapter.Companion.B_ARG_URI
 import kotlinx.android.synthetic.main.tb_image_preview_view_pager.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 
 class ImageFragmentViewer: Fragment(),AnkoLogger {
@@ -46,8 +45,8 @@ class ImageFragmentViewer: Fragment(),AnkoLogger {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tb_image_preview_view_pager_iv.setImage(ImageSource.uri(mUri))
-        tb_image_preview_view_pager_iv.setOnClickListener {
+        view_pager_iv.setImage(ImageSource.uri(mUri))
+        view_pager_iv.setOnClickListener {
             mOnImageClickListener?.onImageClick()
         }
     }

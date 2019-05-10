@@ -64,7 +64,7 @@
             android:id="@+id/preview_fragment_main_add_btn"
             android:layout_width="@dimen/length_28"
             android:layout_height="@dimen/length_28"
-            app:srcCompat="@drawable/ic_square_add_white"
+            app:srcCompat="@drawable/tb_image_preview_ic_square_add_white"
             android:layout_margin="@dimen/offset_12"/>
 
         <View
@@ -106,7 +106,7 @@
             android:id="@+id/preview_fragment_iv_done"
             android:layout_width="@dimen/length_36"
             android:layout_height="@dimen/length_36"
-            app:srcCompat="@drawable/ic_done_black_24dp"
+            app:srcCompat="@drawable/tb_image_preview_ic_done_black_24dp"
             android:background="@drawable/tb_image_preview_dr_rect_round_accent"
             android:padding="@dimen/offset_8"
             android:layout_margin="@dimen/offset_12" />

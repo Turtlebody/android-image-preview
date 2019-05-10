@@ -25,7 +25,7 @@
     </style>
 
     <style name="customOptionOverflow">
-        <item name="android:src">@drawable/ic_more_vert_white_24dp</item>
+        <item name="android:src">@drawable/tb_image_preview_ic_more_vert_white_24dp</item>
         <item name="android:padding">10dp</item>
     </style>
 

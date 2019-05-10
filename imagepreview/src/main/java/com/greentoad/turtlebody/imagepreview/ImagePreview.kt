@@ -22,9 +22,6 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.io.Serializable
 import java.lang.ref.WeakReference
-import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-
-
 
 
 /**
@@ -34,13 +31,13 @@ class ImagePreview {
 
     companion object {
         @JvmStatic
-        fun with(activity: FragmentActivity): ImagePreviewImpl {
-            return ImagePreviewImpl(activity)
+        fun with(activity: FragmentActivity): PreviewFragmentImpl {
+            return PreviewFragmentImpl(activity)
         }
     }
 
 
-    class ImagePreviewImpl(activity: FragmentActivity) : PreviewFragment.OnImagePreviewListener, AnkoLogger {
+    class PreviewFragmentImpl(activity: FragmentActivity) : PreviewFragment.OnPreviewFragmentListener, AnkoLogger {
 
         private var flag: Int = 0
         private var mNavigationalBarColor: Int = 0
@@ -51,20 +48,23 @@ class ImagePreview {
         private var mActivity: WeakReference<FragmentActivity> = WeakReference(activity)
         private var mUri: ArrayList<Uri> = arrayListOf()
 
-        fun setConfig(value: ImagePreviewConfig): ImagePreviewImpl{
+        fun setConfig(value: ImagePreviewConfig): PreviewFragmentImpl{
             mPreviewConfig = value
             return this
         }
 
-        fun setUris(value: ArrayList<Uri>): ImagePreviewImpl {
+        fun setUris(value: ArrayList<Uri>): PreviewFragmentImpl {
             mUri = value
             return this
         }
 
         override fun onDone(data: ArrayList<Uri>) {
+            mOnImagePreviewListener?.onDone(data)
         }
 
-        override fun onAddBtnClicked() {}
+        override fun onAddBtnClicked() {
+            mOnImagePreviewListener?.onAddBtnClicked()
+        }
 
         override fun onBackPressed() {
             setOriginalState()
@@ -187,6 +187,23 @@ class ImagePreview {
                 .addToBackStack(null)
                 .commit()
         }
+
+
+        /*********************
+         *    Listener
+         **********************/
+
+        private var mOnImagePreviewListener: OnImagePreviewListener? = null
+
+        fun setListener(fragmentListener: OnImagePreviewListener): PreviewFragmentImpl {
+            this.mOnImagePreviewListener = fragmentListener
+            return this
+        }
+
+        interface OnImagePreviewListener {
+            fun onDone(data: ArrayList<Uri>)
+            fun onAddBtnClicked()
+        }
     }
 
 
@@ -250,7 +267,7 @@ class ImagePreview {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
-            preview_fragment_activity_toolbar.navigationIcon = ContextCompat.getDrawable(context!!,R.drawable.ic_arrow_back_white_24dp)
+            preview_fragment_activity_toolbar.navigationIcon = ContextCompat.getDrawable(context!!,R.drawable.tb_image_preview_ic_arrow_back_white_24dp)
             preview_fragment_toolbar_txt_count.text = "${mList.size}"
 
             preview_fragment_app_bar.setPadding(0,getStatusBarHeight(),0,0)
@@ -262,10 +279,11 @@ class ImagePreview {
 
         private fun initButton() {
             preview_fragment_main_add_btn.setOnClickListener {
-                mOnImagePreviewListener?.onAddBtnClicked()
+                mOnPreviewFragmentListener?.onAddBtnClicked()
             }
             preview_fragment_iv_done.setOnClickListener {
-                mOnImagePreviewListener?.onDone(mList)
+                mOnPreviewFragmentListener?.onDone(mList)
+                onBackPressed()
             }
 
             preview_fragment_activity_toolbar.setNavigationOnClickListener {
@@ -280,6 +298,11 @@ class ImagePreview {
                 preview_fragment_main_vertical_line.visibility = View.GONE
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
+
+            if(mList.size==1){
+                preview_fragment_main_vertical_line.visibility = View.GONE
+                preview_fragment_main_add_btn.visibility = View.GONE
+            }
         }
 
         override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -288,7 +311,7 @@ class ImagePreview {
 
 
         private fun onBackPressed(){
-            mOnImagePreviewListener?.onBackPressed()
+            mOnPreviewFragmentListener?.onBackPressed()
             fragmentManager?.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
@@ -341,11 +364,11 @@ class ImagePreview {
                     if (mTopBottomBarIsVisible) {
                         hide()
                         mTopBottomBarIsVisible = false
-                        //mOnImagePreviewListener?.onPagerClicked(false)
+                        //mOnPreviewFragmentListener?.onPagerClicked(false)
                     } else {
                         show()
                         mTopBottomBarIsVisible = true
-                        //mOnImagePreviewListener?.onPagerClicked(true)
+                        //mOnPreviewFragmentListener?.onPagerClicked(true)
                     }
                 }
             })
@@ -375,13 +398,13 @@ class ImagePreview {
          *    Listener
          **********************/
 
-        private var mOnImagePreviewListener: OnImagePreviewListener? = null
+        private var mOnPreviewFragmentListener: OnPreviewFragmentListener? = null
 
-        fun setListener(listener: OnImagePreviewListener) {
-            this.mOnImagePreviewListener = listener
+        fun setListener(fragmentListener: OnPreviewFragmentListener) {
+            this.mOnPreviewFragmentListener = fragmentListener
         }
 
-        interface OnImagePreviewListener {
+        interface OnPreviewFragmentListener {
             fun onDone(data: ArrayList<Uri>)
             fun onBackPressed()
             //fun onPagerClicked(isVisible: Boolean)
