@@ -2,6 +2,46 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
+}
+
+
+ext {
+    bintrayRepo = 'android-image-preview'
+    bintrayName = 'com.greentoad.turtlebody.imagepreview'
+
+    publishedGroupId = 'com.greentoad.turtlebody.imagepreview'
+    libraryName = 'Android Image Preview'
+    artifact = 'image-preview'
+
+    libraryDescription = 'Android Library for viewing images'
+
+    siteUrl = 'https://github.com/Turtlebody/android-image-preview'
+    gitUrl = 'https://github.com/Turtlebody/android-image-preview.git'
+
+    libraryVersionCode = 1
+    libraryVersion = '1.0.0'
+
+    developerId = 'greentoad'
+    developerName = 'Green Toad'
+    developerEmail = 'greentoad312@gmail.com'
+
+    licenseName = 'MIT License'
+    licenseUrl = 'https://github.com/Turtlebody/android-image-preview/blob/master/LICENSE'
+    allLicenses = ["MIT"]
+}
+
 android {
     compileSdkVersion 28
 
@@ -9,11 +49,10 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode libraryVersionCode
+        versionName libraryVersion
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -55,6 +94,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
 }
+
 repositories {
     mavenCentral()
 }
+
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

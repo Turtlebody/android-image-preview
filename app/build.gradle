@@ -13,7 +13,7 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        renderscriptTargetApi 28 //must match target sdk and build tools
+        renderscriptTargetApi 28
         renderscriptSupportModeEnabled true
     }
     buildTypes {

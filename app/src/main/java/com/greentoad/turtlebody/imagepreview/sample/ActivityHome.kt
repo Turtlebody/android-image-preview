@@ -188,10 +188,7 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
 
 
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initStatusBar() {
-
-        info { "status: ${window.statusBarColor}" }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.md_white_1000)
 
@@ -204,12 +201,5 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
             window.decorView.systemUiVisibility = flags
             window.statusBarColor = Color.WHITE
         }
-
-        info { "status3: ${window.statusBarColor}" }
     }
-
-    fun fileSize(uri: Uri){
-        var a = File(uri.path).length()
-    }
-
 }
