@@ -27,10 +27,9 @@ public class TestActivityJava extends AppCompatActivity {
 
     void startPreview(ArrayList<Uri> arrayList){
 
-        ImagePreviewConfig config = new ImagePreviewConfig().setAllowAddButton(true);
+        ImagePreviewConfig config = new ImagePreviewConfig().setAllowAddButton(true).setUris(arrayList);
 
         ImagePreview.with(this)
-                .setUris(arrayList)
                 .setConfig(config)
                 .setListener(new ImagePreview.ImagePreviewImpl.OnImagePreviewListener() {
                     @Override
@@ -44,6 +43,9 @@ public class TestActivityJava extends AppCompatActivity {
                     }
                 })
                 .start();
+
+        ImagePreview.ImagePreviewImpl imagePreview = ImagePreview.with(this);
+        imagePreview.dismissImagePreview();
 
     }
 }

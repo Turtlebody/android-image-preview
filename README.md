@@ -35,23 +35,24 @@ Step 1: Declare and Initialize ImagePreview.
 ArrayList<Uri> arrayList = new ArrayList<>();
 //add uri to arrayList
 
-ImagePreviewConfig config = new ImagePreviewConfig().setAllowAddButton(true);
+ImagePreviewConfig config = new ImagePreviewConfig().setAllowAddButton(true).setUris(arrayList);
 
-ImagePreview.with(this)
-        .setUris(arrayList)
-        .setConfig(config)
-        .setListener(new ImagePreview.ImagePreviewImpl.OnImagePreviewListener() {
-            @Override
-            public void onDone(@NotNull ArrayList<Uri> data) {
-                //after done all uri is sent back
-            }
+ImagePreview.ImagePreviewImpl imagePreview = ImagePreview.with(this);
 
-            @Override
-            public void onAddBtnClicked() {
-                //trigger when button clicked
-            }
-        })
-        .start();
+imagePreview
+    .setConfig(config)
+    .setListener(new ImagePreview.ImagePreviewImpl.OnImagePreviewListener() {
+        @Override
+        public void onDone(@NotNull ArrayList<Uri> data) {
+            //after done all uri is sent back
+        }
+
+        @Override
+        public void onAddBtnClicked() {
+            //trigger when button clicked
+        }
+    })
+    .start();
 ```
 
 #### Kotlin
@@ -59,10 +60,9 @@ ImagePreview.with(this)
 val arrayList = arrayListOf<Uri>()
 //add uri to arrayList
 
-val config = ImagePreviewConfig().setAllowAddButton(true)
+val config = ImagePreviewConfig().setAllowAddButton(true).setUris(arrayList)
 
 ImagePreview.with(this)
-    .setUris(arrayList)
     .setConfig(config)
     .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
         override fun onDone(data: ArrayList<Uri>) {
@@ -83,11 +83,39 @@ ImagePreview.with(this)
 #### 1. ImagePreviewConfig:
 It is use to set the configuration.
 1. **.setAllowAddButton(booleanValue)**: tells whether to show add button in preview activity.
+2. **.setUris(arrayList of Uri)**: set array of image(uri) to be send for preview
 
 eg.
 ```java
 //Pick single file with confirmation dialog and set extentions arguments
-ImagePreviewConfig config = new ImagePreviewConfig().setAllowAddButton(true);
+ImagePreviewConfig config = new ImagePreviewConfig().setAllowAddButton(true).setUris(arrayList);
+
+```
+#### 2. ExtraListener:
+Call back listener when user clicked add button or done button.
+
+eg.
+``` java
+.setListener(new ImagePreview.ImagePreviewImpl.OnImagePreviewListener() {
+    @Override
+    public void onDone(@NotNull ArrayList<Uri> data) {
+        //after done all uri is sent back
+    }
+
+    @Override
+    public void onAddBtnClicked() {
+        //trigger when button clicked
+    }
+})
+```
+
+#### 3. Manually dismissing ImagePreview:
+
+```java
+ImagePreview.ImagePreviewImpl imagePreview = ImagePreview.with(this);
+
+//note: always use same instance from which you started imagePreview
+imagePreview.dismissImagePreview();
 
 ```
 

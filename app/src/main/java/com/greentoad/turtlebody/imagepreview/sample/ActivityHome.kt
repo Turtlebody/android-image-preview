@@ -122,10 +122,9 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
             .subscribe({
                 info { "success: $it" }
                 info { "list size: ${it.size}" }
-                if(allowAddBtn){
+                if (allowAddBtn) {
                     startMultiImagePreviewWithAddBtn(it)
-                }
-                else{
+                } else {
                     startMultiImagePreviewWithoutAddBtn(it)
                 }
 
@@ -136,10 +135,10 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
 
 
     private fun startSingleImagePreview(list: ArrayList<Uri>) {
-        mImagePreview.setUris(list)
+        mImagePreview
             //if you send single uri(image)..then regardless of what you set allowBtn..addButton and bottom recyclerView will be invisible
-            .setConfig(ImagePreviewConfig().setAllowAddButton(true))
-            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
+            .setConfig(ImagePreviewConfig().setAllowAddButton(true).setUris(list))
+            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener {
                 override fun onDone(data: ArrayList<Uri>) {
                     info { "data: $data" }
                 }
@@ -152,13 +151,12 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
     }
 
     private fun startMultiImagePreviewWithAddBtn(list: ArrayList<Uri>) {
-        mImagePreview.setUris(list)
-            .setConfig(ImagePreviewConfig().setAllowAddButton(true))
-            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
+        mImagePreview
+            .setConfig(ImagePreviewConfig().setAllowAddButton(true).setUris(list))
+            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener {
                 override fun onDone(data: ArrayList<Uri>) {
                     info { "data: $data" }
                 }
-
                 override fun onAddBtnClicked() {
                     info { "addBtn clicked" }
                 }
@@ -168,22 +166,19 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
 
 
     private fun startMultiImagePreviewWithoutAddBtn(list: ArrayList<Uri>) {
-        mImagePreview.setUris(list)
-            .setConfig(ImagePreviewConfig().setAllowAddButton(false))
-            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
+        mImagePreview
+            .setConfig(ImagePreviewConfig().setAllowAddButton(false).setUris(list))
+            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener {
                 override fun onDone(data: ArrayList<Uri>) {
                     info { "data: $data" }
                     //info { "data size: ${DocumentFile.fromSingleUri(this@ActivityHome,data[0])!!.length()}" }
                 }
-
                 override fun onAddBtnClicked() {
                     info { "addBtn clicked" }
                 }
             })
             .start()
     }
-
-
 
 
     private fun initStatusBar() {

@@ -27,8 +27,7 @@ import android.content.pm.ActivityInfo
 import androidx.core.content.ContextCompat.getSystemService
 import android.view.WindowManager
 import android.view.Display
-
-
+import androidx.fragment.app.DialogFragment
 
 
 /**
@@ -47,15 +46,16 @@ class ImagePreview {
     class ImagePreviewImpl(activity: FragmentActivity) : PreviewFragment.OnPreviewFragmentListener, AnkoLogger {
 
         private var flag: Int = 0
-        private var mNavigationalBarColor: Int = 0
-        private var mOriginalFlag: Int = 0
-        private var mStatusBarColor: Int = 0
+
+        private var mNavigationalBarColor: Int? = null
+        private var mOriginalFlag: Int? = null
+        private var mStatusBarColor: Int? = null
         private var mIsActionBarShowing: Boolean? = null
+        private var mFragment: DialogFragment? = null
 
         private var mPreviewConfig: ImagePreviewConfig = ImagePreviewConfig()
 
         private var mActivity: WeakReference<FragmentActivity> = WeakReference(activity)
-        private var mUri: ArrayList<Uri> = arrayListOf()
 
         /**
          * @param value: ImagePreviewConfig
@@ -65,13 +65,6 @@ class ImagePreview {
             return this
         }
 
-        /**
-         * @param value: array of uri to be sent for preview
-         */
-        fun setUris(value: ArrayList<Uri>): ImagePreviewImpl {
-            mUri = value
-            return this
-        }
 
         override fun onDone(data: ArrayList<Uri>) {
             mOnImagePreviewListener?.onDone(data)
@@ -108,23 +101,25 @@ class ImagePreview {
 
         }
 
+        fun dismissImagePreview(){
+            if(mFragment!=null){
+                setOriginalState()
+                mActivity.get()?.supportFragmentManager?.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                mFragment = null
+            }
+        }
+
         /**
          * start image-preview fragment
          */
         fun start() {
-            startFragment()
-        }
-
-        private fun startFragment() {
             hideDefaultToolbar()
             showDialog(mActivity.get()!!)
         }
 
 
-
         private fun hideDefaultToolbar() {
            // flag = mActivity.get()?.window?.decorView?.systemUiVisibility
-
             mActivity.get()?.let {
                 if (it is AppCompatActivity) {
                     if(it.supportActionBar == null){
@@ -153,7 +148,6 @@ class ImagePreview {
             }
         }
 
-
         private fun setOriginalState() {
             mActivity.get()?.let {
                 if (it is AppCompatActivity) {
@@ -165,14 +159,21 @@ class ImagePreview {
                 }
 
                 it.window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                    it.window.navigationBarColor = mNavigationalBarColor
+
+                    if(mNavigationalBarColor!=null)
+                        it.window.navigationBarColor = mNavigationalBarColor!!
 
                     //status
-                    it.window.statusBarColor = mStatusBarColor
+                    if(mStatusBarColor!=null)
+                        it.window.statusBarColor = mStatusBarColor!!
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                        it.window.decorView.systemUiVisibility = mOriginalFlag
-                        it.window.statusBarColor = mStatusBarColor
+
+                        if(mOriginalFlag!=null)
+                            it.window.decorView.systemUiVisibility = mOriginalFlag!!
+                        if(mStatusBarColor!=null)
+                            it.window.statusBarColor = mStatusBarColor!!
                     }
                 }
             }
@@ -201,8 +202,7 @@ class ImagePreview {
 
         private fun showDialog(activity: FragmentActivity) {
             val bundle = Bundle()
-            bundle.putSerializable("key", mUri as Serializable)
-            bundle.putSerializable("key2", mPreviewConfig as Serializable)
+            bundle.putSerializable(ImagePreviewConfig.ARG_BUNDLE, mPreviewConfig as Serializable)
 
             val fragmentManager = activity.supportFragmentManager
             val newFragment = PreviewFragment.newInstance(999, bundle)
@@ -212,6 +212,8 @@ class ImagePreview {
             transaction.add(android.R.id.content, newFragment)
                 .addToBackStack(null)
                 .commit()
+
+            mFragment = newFragment
         }
 
 
@@ -241,7 +243,7 @@ class ImagePreview {
 
         private lateinit var mAdapterPager: ViewPagerAdapter
         private lateinit var mAdapterRecycler: ImageAdapter
-        private var mList: ArrayList<Uri> = arrayListOf()
+//        private var mList: ArrayList<Uri> = arrayListOf()
         private var mTopBottomBarIsVisible = true
         private var mPreviewConfig: ImagePreviewConfig = ImagePreviewConfig()
 
@@ -261,8 +263,7 @@ class ImagePreview {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
             if (arguments != null) {
-                mList = arguments!!.getSerializable("key") as ArrayList<Uri>
-                mPreviewConfig = arguments!!.getSerializable("key2") as ImagePreviewConfig
+                mPreviewConfig = arguments!!.getSerializable(ImagePreviewConfig.ARG_BUNDLE) as ImagePreviewConfig
             }
 
             val view =  inflater.inflate(R.layout.tb_image_preview_fragment_preview, container, false)
@@ -294,7 +295,7 @@ class ImagePreview {
             super.onViewCreated(view, savedInstanceState)
 
             preview_fragment_activity_toolbar.navigationIcon = ContextCompat.getDrawable(context!!,R.drawable.tb_image_preview_ic_arrow_back_white_24dp)
-            preview_fragment_toolbar_txt_count.text = "${mList.size}"
+            preview_fragment_toolbar_txt_count.text = "${mPreviewConfig.mUriList.size}"
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 preview_fragment_app_bar.setPadding(0,getStatusBarHeight(),0,0)
@@ -310,7 +311,7 @@ class ImagePreview {
                 mOnPreviewFragmentListener?.onAddBtnClicked()
             }
             preview_fragment_iv_done.setOnClickListener {
-                mOnPreviewFragmentListener?.onDone(mList)
+                mOnPreviewFragmentListener?.onDone(mPreviewConfig.mUriList)
                 onBackPressed()
             }
 
@@ -327,7 +328,7 @@ class ImagePreview {
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
 
-            if(mList.size==1){
+            if(mPreviewConfig.mUriList.size==1){
                 preview_fragment_main_vertical_line.visibility = View.GONE
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
@@ -340,6 +341,7 @@ class ImagePreview {
 
         private fun onBackPressed(){
             mOnPreviewFragmentListener?.onBackPressed()
+            //this.dismiss()
             fragmentManager?.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
@@ -377,7 +379,7 @@ class ImagePreview {
         private fun initAdapter() {
             /*recycler view*/
             mAdapterRecycler = ImageAdapter()
-            mAdapterRecycler.setData(mList)
+            mAdapterRecycler.setData(mPreviewConfig.mUriList)
             mAdapterRecycler.setListener(object : ImageAdapter.OnRecyclerImageClickListener {
                 override fun onRecyclerImageClick(index: Int) {
                     preview_fragment_viewpager.currentItem = index
@@ -389,7 +391,7 @@ class ImagePreview {
 
             /*view pager*/
             mAdapterPager = ViewPagerAdapter(childFragmentManager)
-            mAdapterPager.setData(mList)
+            mAdapterPager.setData(mPreviewConfig.mUriList)
             mAdapterPager.setListener(object : ViewPagerAdapter.OnViewPagerClickListener {
                 override fun onViewPagerClick() {
                     if (mTopBottomBarIsVisible) {
