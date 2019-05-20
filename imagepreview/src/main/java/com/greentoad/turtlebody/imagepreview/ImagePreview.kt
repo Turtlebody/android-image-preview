@@ -22,6 +22,13 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.io.Serializable
 import java.lang.ref.WeakReference
+import android.content.Context.WINDOW_SERVICE
+import android.content.pm.ActivityInfo
+import androidx.core.content.ContextCompat.getSystemService
+import android.view.WindowManager
+import android.view.Display
+
+
 
 
 /**
@@ -31,29 +38,37 @@ class ImagePreview {
 
     companion object {
         @JvmStatic
-        fun with(activity: FragmentActivity): PreviewFragmentImpl {
-            return PreviewFragmentImpl(activity)
+        fun with(activity: FragmentActivity): ImagePreviewImpl {
+            return ImagePreviewImpl(activity)
         }
     }
 
 
-    class PreviewFragmentImpl(activity: FragmentActivity) : PreviewFragment.OnPreviewFragmentListener, AnkoLogger {
+    class ImagePreviewImpl(activity: FragmentActivity) : PreviewFragment.OnPreviewFragmentListener, AnkoLogger {
 
         private var flag: Int = 0
         private var mNavigationalBarColor: Int = 0
         private var mOriginalFlag: Int = 0
         private var mStatusBarColor: Int = 0
+        private var mIsActionBarShowing: Boolean? = null
+
         private var mPreviewConfig: ImagePreviewConfig = ImagePreviewConfig()
 
         private var mActivity: WeakReference<FragmentActivity> = WeakReference(activity)
         private var mUri: ArrayList<Uri> = arrayListOf()
 
-        fun setConfig(value: ImagePreviewConfig): PreviewFragmentImpl{
+        /**
+         * @param value: ImagePreviewConfig
+         */
+        fun setConfig(value: ImagePreviewConfig): ImagePreviewImpl{
             mPreviewConfig = value
             return this
         }
 
-        fun setUris(value: ArrayList<Uri>): PreviewFragmentImpl {
+        /**
+         * @param value: array of uri to be sent for preview
+         */
+        fun setUris(value: ArrayList<Uri>): ImagePreviewImpl {
             mUri = value
             return this
         }
@@ -94,9 +109,9 @@ class ImagePreview {
         }
 
         /**
-         * @return observable uri list
+         * start image-preview fragment
          */
-        fun onResult() {
+        fun start() {
             startFragment()
         }
 
@@ -112,13 +127,19 @@ class ImagePreview {
 
             mActivity.get()?.let {
                 if (it is AppCompatActivity) {
-                    it.supportActionBar?.hide()
+                    if(it.supportActionBar == null){
+                        mIsActionBarShowing = null
+                    }
+                    else{
+                        mIsActionBarShowing = it.supportActionBar?.isShowing
+                        it.supportActionBar?.hide()
+                    }
                 }
 
-                it.window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    it.window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
                     mNavigationalBarColor = it.window.navigationBarColor
                     it.window.navigationBarColor = ContextCompat.getColor(it,R.color.md_black_1000_75)
 
@@ -136,8 +157,13 @@ class ImagePreview {
         private fun setOriginalState() {
             mActivity.get()?.let {
                 if (it is AppCompatActivity) {
-                    it.supportActionBar?.show()
+                    if(mIsActionBarShowing!=null){
+                        if(mIsActionBarShowing!!){
+                            it.supportActionBar?.show()
+                        }
+                    }
                 }
+
                 it.window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     it.window.navigationBarColor = mNavigationalBarColor
@@ -195,7 +221,7 @@ class ImagePreview {
 
         private var mOnImagePreviewListener: OnImagePreviewListener? = null
 
-        fun setListener(fragmentListener: OnImagePreviewListener): PreviewFragmentImpl {
+        fun setListener(fragmentListener: OnImagePreviewListener): ImagePreviewImpl {
             this.mOnImagePreviewListener = fragmentListener
             return this
         }
@@ -270,8 +296,10 @@ class ImagePreview {
             preview_fragment_activity_toolbar.navigationIcon = ContextCompat.getDrawable(context!!,R.drawable.tb_image_preview_ic_arrow_back_white_24dp)
             preview_fragment_toolbar_txt_count.text = "${mList.size}"
 
-            preview_fragment_app_bar.setPadding(0,getStatusBarHeight(),0,0)
-            preview_fragment_bottom_ll.setPadding(0,0,0,getNavigationBarSize(context!!).y)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                preview_fragment_app_bar.setPadding(0,getStatusBarHeight(),0,0)
+                preview_fragment_bottom_ll.setPadding(0,0,0,getNavigationBarSize(context!!).y)
+            }
 
             initButton()
             initAdapter()
@@ -319,8 +347,11 @@ class ImagePreview {
         private fun show() {
             mUiVisibilityFlag?.let {
                 preview_fragment_parent_fl.systemUiVisibility = it
-                preview_fragment_app_bar.setPadding(0,getStatusBarHeight(),0,0)
-                preview_fragment_bottom_ll.setPadding(0,0,0,getNavigationBarSize(context!!).y)
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    preview_fragment_app_bar.setPadding(0,getStatusBarHeight(),0,0)
+                    preview_fragment_bottom_ll.setPadding(0,0,0,getNavigationBarSize(context!!).y)
+                }
 
                 preview_fragment_activity_toolbar.visibility = View.VISIBLE
                 preview_fragment_bottom_ll.visibility = View.VISIBLE

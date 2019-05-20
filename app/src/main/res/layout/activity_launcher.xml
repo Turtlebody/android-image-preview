@@ -14,7 +14,7 @@
         android:orientation="vertical">
         <ImageView
             android:layout_width="@dimen/length_144"
-            app:srcCompat="@drawable/image_preview_logo"
+            android:src="@drawable/image_preview_logo"
             android:scaleType="centerInside"
             android:layout_height="@dimen/length_112" />
         <TextView

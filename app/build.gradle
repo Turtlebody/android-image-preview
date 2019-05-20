@@ -11,14 +11,22 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 28
         renderscriptSupportModeEnabled true
     }
+    signingConfigs {
+        release
+        /*config {
+
+        }*/
+    }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,6 +39,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
+    implementation 'androidx.multidex:multidex:2.0.1'
 
 
     implementation 'com.google.android.material:material:1.1.0-alpha06'
@@ -43,6 +52,7 @@ dependencies {
 
     //blur view
     implementation 'com.github.mmin18:realtimeblurview:1.1.2'
+    //implementation 'com.fivehundredpx:blurringview:1.0.0'
 
 
     implementation project(path: ':imagepreview')
@@ -57,11 +67,39 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
+    //rounded corner
     implementation 'com.jcminarro:RoundKornerLayouts:0.4.0'
+    //implementation 'com.skyline.widget:round-corner-layout:1.0.1'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
 
+def Properties props = new Properties()
+def propFile = rootProject.file('app/signing.properties')
+
+if (propFile.canRead()) {
+    props.load(new FileInputStream(propFile))
+
+    println 'signing.properties'
+    if (props != null &&
+            props.containsKey('STORE_FILE') &&
+            props.containsKey('STORE_PASSWORD') &&
+            props.containsKey('KEY_ALIAS') &&
+            props.containsKey('KEY_PASSWORD')) {
+        android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+        android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+        android.signingConfigs.release.v1SigningEnabled = true
+        android.signingConfigs.release.v2SigningEnabled = true
+    } else {
+        println 'signing.properties found but some entries are missing'
+        android.buildTypes.release.signingConfig = null
+    }
+} else {
+    println 'signing.properties not found'
+    android.buildTypes.release.signingConfig = null
 }

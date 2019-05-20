@@ -30,8 +30,8 @@ ext {
     siteUrl = 'https://github.com/Turtlebody/android-image-preview'
     gitUrl = 'https://github.com/Turtlebody/android-image-preview.git'
 
-    libraryVersionCode = 1
-    libraryVersion = '1.0.0'
+    libraryVersionCode = 2
+    libraryVersion = '1.0.1'
 
     developerId = 'greentoad'
     developerName = 'Green Toad'

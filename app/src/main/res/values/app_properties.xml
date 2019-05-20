@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="blur_visibility" type="integer">2</item>
+    <item name="frame_visibility" type="integer">0</item>
+</resources>

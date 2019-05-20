@@ -2,18 +2,14 @@ package com.greentoad.turtlebody.imagepreview.sample
 
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.net.toFile
-import androidx.documentfile.provider.DocumentFile
 import com.bumptech.glide.Glide
 import com.greentoad.turtlebody.imagepreview.ImagePreview
 import com.greentoad.turtlebody.imagepreview.core.ImagePreviewConfig
@@ -22,7 +18,6 @@ import com.greentoad.turtlebody.mediapicker.core.MediaPickerConfig
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import java.io.File
 
 
 class ActivityHome : AppCompatActivity(), AnkoLogger {
@@ -42,6 +37,9 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
             .load(R.drawable.pic_image)
             .into(activity_home_background_image)
 
+        Glide.with(this)
+            .load(R.drawable.pic_blur_back)
+            .into(activity_home_background_blur)
     }
 
     /*
@@ -141,7 +139,7 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
         mImagePreview.setUris(list)
             //if you send single uri(image)..then regardless of what you set allowBtn..addButton and bottom recyclerView will be invisible
             .setConfig(ImagePreviewConfig().setAllowAddButton(true))
-            .setListener(object : ImagePreview.PreviewFragmentImpl.OnImagePreviewListener{
+            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
                 override fun onDone(data: ArrayList<Uri>) {
                     info { "data: $data" }
                 }
@@ -150,13 +148,13 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
                     info { "addBtn clicked" }
                 }
             })
-            .onResult()
+            .start()
     }
 
     private fun startMultiImagePreviewWithAddBtn(list: ArrayList<Uri>) {
         mImagePreview.setUris(list)
             .setConfig(ImagePreviewConfig().setAllowAddButton(true))
-            .setListener(object : ImagePreview.PreviewFragmentImpl.OnImagePreviewListener{
+            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
                 override fun onDone(data: ArrayList<Uri>) {
                     info { "data: $data" }
                 }
@@ -165,16 +163,16 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
                     info { "addBtn clicked" }
                 }
             })
-            .onResult()
+            .start()
     }
+
 
     private fun startMultiImagePreviewWithoutAddBtn(list: ArrayList<Uri>) {
         mImagePreview.setUris(list)
             .setConfig(ImagePreviewConfig().setAllowAddButton(false))
-            .setListener(object : ImagePreview.PreviewFragmentImpl.OnImagePreviewListener{
+            .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
                 override fun onDone(data: ArrayList<Uri>) {
                     info { "data: $data" }
-
                     //info { "data size: ${DocumentFile.fromSingleUri(this@ActivityHome,data[0])!!.length()}" }
                 }
 
@@ -182,7 +180,7 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
                     info { "addBtn clicked" }
                 }
             })
-            .onResult()
+            .start()
     }
 
 
@@ -191,8 +189,6 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
     private fun initStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.md_white_1000)
-
-            info { "status2: ${window.statusBarColor}" }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

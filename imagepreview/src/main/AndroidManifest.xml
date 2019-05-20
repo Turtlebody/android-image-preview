@@ -3,8 +3,6 @@
     package="com.greentoad.turtlebody.imagepreview">
 
     <application>
-        <activity android:name=".ui.components.ActivityLibMain"
-            android:theme="@style/TbImagePreviewPickerTheme"/>
     </application>
 
 </manifest>

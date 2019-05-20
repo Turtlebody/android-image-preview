@@ -1,92 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/md_white_1000">
+    android:background="@color/md_white_1000"
+    android:orientation="vertical">
 
-    <TextView
-        style="@style/TextNormal"
-        android:layout_marginStart="@dimen/offset_28"
-        android:layout_marginLeft="@dimen/offset_28"
-        android:layout_marginTop="@dimen/offset_30"
-        android:text="Image Preview"
-        android:textSize="@dimen/font_20"
-        android:textColor="@color/md_black_1000"/>
-
-    <TextView
-        style="@style/TextNormal"
-        android:layout_marginStart="@dimen/offset_28"
-        android:layout_marginLeft="@dimen/offset_28"
-        android:layout_marginTop="@dimen/offset_6"
-        android:text="Example to view images"
-        android:textColor="@color/md_grey_400"
-        android:textSize="@dimen/font_16" />
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/offset_16">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/activity_home_background_blur"
+        <TextView
+            style="@style/TextNormal"
+            android:layout_marginStart="@dimen/offset_28"
+            android:layout_marginLeft="@dimen/offset_28"
+            android:layout_marginTop="@dimen/offset_30"
+            android:text="Image Preview"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/font_20" />
+
+        <TextView
+            style="@style/TextNormal"
+            android:layout_marginStart="@dimen/offset_28"
+            android:layout_marginLeft="@dimen/offset_28"
+            android:layout_marginTop="@dimen/offset_6"
+            android:text="Example to view images"
+            android:textColor="@color/md_grey_400"
+            android:textSize="@dimen/font_16" />
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/offset_4"
-            android:layout_marginEnd="@dimen/offset_4"
-            android:scaleType="fitXY"
-            android:src="@drawable/pic_blur_back"/>
-
-        <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:bottom_left_corner_radius="8dp"
-            app:bottom_right_corner_radius="8dp"
-            app:top_left_corner_radius="8dp"
-            app:top_right_corner_radius="8dp"
-            android:layout_marginTop="@dimen/offset_12"
-            android:layout_marginStart="@dimen/offset_24"
-            android:layout_marginEnd="@dimen/offset_24"
-            android:layout_marginBottom="@dimen/offset_24">
+            android:layout_marginTop="@dimen/offset_16">
 
             <ImageView
-                android:id="@+id/activity_home_background_image"
+                android:id="@+id/activity_home_background_blur"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/pic_image"/>
+                android:layout_marginStart="@dimen/offset_4"
+                android:layout_marginEnd="@dimen/offset_4"
+                android:scaleType="fitXY"
+                tools:src="@drawable/pic_blur_back" />
 
+            <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/offset_24"
+                android:layout_marginTop="@dimen/offset_12"
+                android:layout_marginEnd="@dimen/offset_24"
+                android:layout_marginBottom="@dimen/offset_24"
+                app:bottom_left_corner_radius="8dp"
+                app:bottom_right_corner_radius="8dp"
+                app:top_left_corner_radius="8dp"
+                app:top_right_corner_radius="8dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="@dimen/offset_30">
+                <ImageView
+                    android:id="@+id/activity_home_background_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/pic_image" />
 
-                <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:bottom_left_corner_radius="0dp"
-                    app:bottom_right_corner_radius="0dp"
-                    app:top_left_corner_radius="8dp"
-                    app:top_right_corner_radius="8dp"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="@dimen/offset_1">
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="@dimen/offset_32"
+                    android:orientation="vertical">
 
-                    <FrameLayout
+                    <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                        android:id="@+id/activity_home_single_image"
                         android:layout_width="@dimen/length_128"
                         android:layout_height="@dimen/length_128"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="@dimen/offset_1"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="@drawable/sc_ripple_black_alpha_25"
-                        android:id="@+id/activity_home_single_image">
+                        app:bottom_left_corner_radius="0dp"
+                        app:bottom_right_corner_radius="0dp"
+                        app:top_left_corner_radius="8dp"
+                        app:top_right_corner_radius="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/md_white_1000_20"
+                            android:visibility="@integer/frame_visibility" />
 
                         <com.github.mmin18.widget.RealtimeBlurView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:visibility="@integer/blur_visibility"
                             app:realtimeBlurRadius="2dp"
                             app:realtimeOverlayColor="@color/md_white_1000_20" />
 
@@ -101,7 +109,7 @@
                                 android:layout_height="@dimen/length_24"
                                 android:layout_marginBottom="@dimen/length_16"
                                 android:scaleType="centerInside"
-                                app:srcCompat="@drawable/ic_framed_image"/>
+                                app:srcCompat="@drawable/ic_framed_image" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -118,37 +126,37 @@
                                     android:text="Image        " />
                             </LinearLayout>
                         </LinearLayout>
+                    </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
 
-                    </FrameLayout>
-                </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:bottom_left_corner_radius="8dp"
-                        app:bottom_right_corner_radius="0dp"
-                        app:top_left_corner_radius="8dp"
-                        app:top_right_corner_radius="0dp"
-                        android:layout_marginEnd="0.5dp"
-                        android:layout_marginRight="0.5dp">
+                        android:orientation="horizontal">
 
-                        <FrameLayout
+                        <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                            android:id="@+id/activity_home_with_add_btn"
                             android:layout_width="@dimen/length_128"
                             android:layout_height="@dimen/length_128"
+                            android:layout_marginEnd="0.5dp"
+                            android:layout_marginRight="0.5dp"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/sc_ripple_black_alpha_25"
-                            android:id="@+id/activity_home_with_add_btn">
+                            app:bottom_left_corner_radius="8dp"
+                            app:bottom_right_corner_radius="0dp"
+                            app:top_left_corner_radius="8dp"
+                            app:top_right_corner_radius="0dp">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/md_white_1000_20"
+                                android:visibility="@integer/frame_visibility" />
 
                             <com.github.mmin18.widget.RealtimeBlurView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:visibility="@integer/blur_visibility"
                                 app:realtimeBlurRadius="2dp"
                                 app:realtimeOverlayColor="@color/md_white_1000_20" />
 
@@ -163,7 +171,7 @@
                                     android:layout_height="@dimen/length_24"
                                     android:layout_marginBottom="@dimen/length_16"
                                     android:scaleType="centerInside"
-                                    app:srcCompat="@drawable/tb_image_preview_ic_square_add_white"/>
+                                    app:srcCompat="@drawable/tb_image_preview_ic_square_add_white" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -181,31 +189,34 @@
                                 </LinearLayout>
                             </LinearLayout>
 
-                        </FrameLayout>
 
-                    </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
+                        </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
 
-                    <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:bottom_left_corner_radius="0dp"
-                        app:bottom_right_corner_radius="8dp"
-                        app:top_left_corner_radius="0dp"
-                        app:top_right_corner_radius="0dp"
-                        android:layout_marginStart="0.5dp"
-                        android:layout_marginLeft="0.5dp">
-
-                        <FrameLayout
+                        <com.jcminarro.roundkornerlayout.RoundKornerFrameLayout
+                            android:id="@+id/activity_home_without_add_btn"
                             android:layout_width="@dimen/length_128"
                             android:layout_height="@dimen/length_128"
+                            android:layout_marginStart="0.5dp"
+                            android:layout_marginLeft="0.5dp"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/sc_ripple_black_alpha_25"
-                            android:id="@+id/activity_home_without_add_btn">
+                            app:bottom_left_corner_radius="0dp"
+                            app:bottom_right_corner_radius="8dp"
+                            app:top_left_corner_radius="0dp"
+                            app:top_right_corner_radius="0dp">
+
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/md_white_1000_20"
+                                android:visibility="@integer/frame_visibility" />
 
                             <com.github.mmin18.widget.RealtimeBlurView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:visibility="@integer/blur_visibility"
                                 app:realtimeBlurRadius="2dp"
                                 app:realtimeOverlayColor="@color/md_white_1000_20" />
 
@@ -237,16 +248,13 @@
                                 </LinearLayout>
                             </LinearLayout>
 
-                        </FrameLayout>
+                        </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
+                    </LinearLayout>
 
-                    </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
                 </LinearLayout>
 
-            </LinearLayout>
-        </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
+            </com.jcminarro.roundkornerlayout.RoundKornerFrameLayout>
+        </FrameLayout>
+    </LinearLayout>
 
-
-
-
-    </FrameLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
