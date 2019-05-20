@@ -66,13 +66,11 @@ ImagePreview.with(this)
     .setConfig(config)
     .setListener(object : ImagePreview.ImagePreviewImpl.OnImagePreviewListener{
         override fun onDone(data: ArrayList<Uri>) {
-            info { "data: $data" }
-
-            //info { "data size: ${DocumentFile.fromSingleUri(this@ActivityHome,data[0])!!.length()}" }
+            println( "uris: $data" )
         }
 
         override fun onAddBtnClicked() {
-            info { "addBtn clicked" }
+            printn( "addBtn clicked" )
         }
     })
     .start()
@@ -87,7 +85,7 @@ It is use to set the configuration.
 
 eg.
 ```java
-//Pick single file with confirmation dialog and set extentions arguments
+//allow button and set uri list
 ImagePreviewConfig config = new ImagePreviewConfig().setAllowAddButton(true).setUris(arrayList);
 
 ```
