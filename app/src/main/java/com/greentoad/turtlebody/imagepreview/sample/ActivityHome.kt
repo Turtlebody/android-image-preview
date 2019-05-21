@@ -2,6 +2,7 @@ package com.greentoad.turtlebody.imagepreview.sample
 
 
 import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -112,6 +113,7 @@ class ActivityHome : AppCompatActivity(), AnkoLogger {
                     .setUriPermanentAccess(true)
                     .setAllowMultiSelection(true)
                     .setShowConfirmationDialog(true)
+                    .setScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             )
             .setFileMissingListener(object : MediaPicker.MediaPickerImpl.OnMediaListener {
                 override fun onMissingFileWarning() {

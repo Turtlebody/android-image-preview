@@ -328,9 +328,12 @@ class ImagePreview {
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
 
-            if(mPreviewConfig.mUriList.size==1){
-                preview_fragment_main_vertical_line.visibility = View.GONE
-                preview_fragment_main_add_btn.visibility = View.GONE
+            if(mPreviewConfig.mUriList.size<2){
+                preview_fragment_bottom_ll.visibility = View.GONE
+//                preview_fragment_main_add_btn.visibility = View.GONE
+//                preview_fragment_recyclerview_horizontal.visibility = View.GONE
+//                preview_fragment_right_shadow.visibility = View.GONE
+//                preview_fragment_left_shadow.visibility = View.GONE
             }
         }
 
@@ -356,7 +359,10 @@ class ImagePreview {
                 }
 
                 preview_fragment_activity_toolbar.visibility = View.VISIBLE
-                preview_fragment_bottom_ll.visibility = View.VISIBLE
+
+                if(mPreviewConfig.mUriList.size>1) {
+                    preview_fragment_bottom_ll.visibility = View.VISIBLE
+                }
             }
         }
 
@@ -373,7 +379,10 @@ class ImagePreview {
             preview_fragment_bottom_ll.setPadding(0,0,0,0)
 
             preview_fragment_activity_toolbar.visibility = View.GONE
-            preview_fragment_bottom_ll.visibility = View.GONE
+
+            if(mPreviewConfig.mUriList.size>1) {
+                preview_fragment_bottom_ll.visibility = View.GONE
+            }
         }
 
         private fun initAdapter() {

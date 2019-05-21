@@ -88,12 +88,14 @@
                 android:layout_height="wrap_content"/>
 
             <View
+                android:id="@+id/preview_fragment_left_shadow"
                 android:layout_width="@dimen/length_28"
                 android:layout_height="@dimen/length_44"
                 android:layout_gravity="start|center_vertical"
                 android:background="@drawable/tb_image_preview_dr_rect_gradient_black_white_horizontal"/>
 
             <View
+                android:id="@+id/preview_fragment_right_shadow"
                 android:layout_width="@dimen/length_24"
                 android:layout_height="@dimen/length_44"
                 android:layout_gravity="end|center_vertical"
