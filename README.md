@@ -5,7 +5,9 @@
 
 
 ### Demo:
-![](https://media.giphy.com/media/SXxdWquu9zlLiHIuc2/giphy.gif)
+![](https://github.com/Turtlebody/android-image-preview/blob/master/giphy.gif) 
+
+(https://media.giphy.com/media/SXxdWquu9zlLiHIuc2/giphy.gif)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt="Get it on Google Play"
