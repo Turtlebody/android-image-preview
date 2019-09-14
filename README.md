@@ -1,5 +1,7 @@
 ![](https://thedroid.io/assets/img/tb-image-preview.png)
 
+---
+
 ![API](https://img.shields.io/badge/API-16%2B-34bf49.svg)
 [ ![Download](https://api.bintray.com/packages/greentoad/android-image-preview/com.greentoad.turtlebody.imagepreview/images/download.svg?version=latest) ](https://bintray.com/greentoad/android-image-preview/com.greentoad.turtlebody.imagepreview/1.0.1/link)
 
