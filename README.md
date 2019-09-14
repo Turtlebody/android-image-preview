@@ -17,7 +17,7 @@
 
 ## Image Preview Library for Android (AndroidX)
 
-A Image Preview library for Android for selecting single/multiple files of any type.
+A Image Preview library for Android for viewing single/multiple images.
 
 
 ## Setup
