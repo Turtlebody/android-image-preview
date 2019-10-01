@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/preview_fragment_parent_fl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tb_image_preview_background"
     android:clickable="true"
     android:focusable="true">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/preview_fragment_bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/tb_image_preview_dr_rect_gradient_white_black"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/offset_12"
+            android:layout_marginLeft="@dimen/offset_12"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/preview_fragment_left_shadow"
+                android:layout_width="@dimen/length_28"
+                android:layout_height="@dimen/length_44"
+                android:layout_gravity="start|center_vertical"
+                android:background="@drawable/tb_image_preview_dr_rect_gradient_black_white_horizontal" />
+
+            <View
+                android:id="@+id/preview_fragment_right_shadow"
+                android:layout_width="@dimen/length_24"
+                android:layout_height="@dimen/length_44"
+                android:layout_gravity="end|center_vertical"
+                android:background="@drawable/tb_image_preview_dr_rect_gradient_white_black_horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/preview_fragment_recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/preview_fragment_main_add_btn"
+            android:layout_width="@dimen/length_28"
+            android:layout_height="@dimen/length_28"
+            android:layout_margin="@dimen/offset_12"
+            app:srcCompat="@drawable/tb_image_preview_ic_square_add_white" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/preview_fragment_iv_done"
+            android:layout_width="@dimen/length_36"
+            android:layout_height="@dimen/length_36"
+            android:layout_margin="@dimen/offset_12"
+            android:background="@drawable/tb_image_preview_dr_rect_round_accent"
+            android:padding="@dimen/offset_8"
+            app:srcCompat="@drawable/tb_image_preview_ic_done_black_24dp" />
+
+
+        <View
+            android:id="@+id/preview_fragment_main_vertical_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/offset_12"
+            android:layout_marginBottom="@dimen/offset_12"
+            android:background="@color/md_grey_600" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/preview_fragment_viewpager"
@@ -18,103 +79,39 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/preview_fragment_app_bar"
         android:layout_width="match_parent"
-        app:elevation="@dimen/offset_0"
         android:layout_height="wrap_content"
+        android:layout_gravity="top"
         android:background="@drawable/tb_image_preview_dr_rect_gradient_black_white"
-        android:layout_gravity="top">
+        app:elevation="@dimen/offset_0">
 
         <androidx.appcompat.widget.Toolbar
-            app:title="@string/app_name"
             android:id="@+id/preview_fragment_activity_toolbar"
-            app:layout_collapseMode="pin"
-            app:titleTextAppearance="@style/App.TextAppearance.h4.Title"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="@color/tb_image_preview_toolbar_text"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Light">
-            <TextView
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/App.TextAppearance.h4.Title"
+            app:titleTextColor="@color/tb_image_preview_toolbar_text">
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/preview_fragment_toolbar_txt_count"
                 android:layout_width="@dimen/length_36"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
-                android:gravity="center"
                 android:layout_marginEnd="@dimen/offset_8"
                 android:layout_marginRight="8dp"
-                android:textColor="@color/tb_image_preview_toolbar_counter_text"
                 android:background="@drawable/tb_image_preview_dr_rect_round_light_grey"
+                android:gravity="center"
                 android:padding="@dimen/offset_4"
                 android:text="0"
-                android:textSize="@dimen/font_16"/>
+                android:textColor="@color/tb_image_preview_toolbar_counter_text"
+                android:textSize="@dimen/font_16" />
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/preview_fragment_bottom_ll"
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tb_image_preview_dr_rect_gradient_white_black"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-
-        <ImageView
-            android:id="@+id/preview_fragment_main_add_btn"
-            android:layout_width="@dimen/length_28"
-            android:layout_height="@dimen/length_28"
-            app:srcCompat="@drawable/tb_image_preview_ic_square_add_white"
-            android:layout_margin="@dimen/offset_12"/>
-
-        <View
-            android:id="@+id/preview_fragment_main_vertical_line"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/md_grey_600"
-            android:layout_marginTop="@dimen/offset_12"
-            android:layout_marginBottom="@dimen/offset_12" />
-
-        <FrameLayout
-            android:layout_marginStart="@dimen/offset_12"
-            android:layout_marginLeft="@dimen/offset_12"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/preview_fragment_recyclerview_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:id="@+id/preview_fragment_left_shadow"
-                android:layout_width="@dimen/length_28"
-                android:layout_height="@dimen/length_44"
-                android:layout_gravity="start|center_vertical"
-                android:background="@drawable/tb_image_preview_dr_rect_gradient_black_white_horizontal"/>
-
-            <View
-                android:id="@+id/preview_fragment_right_shadow"
-                android:layout_width="@dimen/length_24"
-                android:layout_height="@dimen/length_44"
-                android:layout_gravity="end|center_vertical"
-                android:background="@drawable/tb_image_preview_dr_rect_gradient_white_black_horizontal"/>
-        </FrameLayout>
-
-
-
-        <ImageView
-            android:id="@+id/preview_fragment_iv_done"
-            android:layout_width="@dimen/length_36"
-            android:layout_height="@dimen/length_36"
-            app:srcCompat="@drawable/tb_image_preview_ic_done_black_24dp"
-            android:background="@drawable/tb_image_preview_dr_rect_round_accent"
-            android:padding="@dimen/offset_8"
-            android:layout_margin="@dimen/offset_12" />
-    </LinearLayout>
-
     <include layout="@layout/tb_image_preview_frame_progress" />
-
 
 </FrameLayout>
