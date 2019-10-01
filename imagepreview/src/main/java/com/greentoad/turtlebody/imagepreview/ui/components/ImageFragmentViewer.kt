@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.tb_image_preview_view_pager.*
 import org.jetbrains.anko.AnkoLogger
 
 
-class ImageFragmentViewer: Fragment(),AnkoLogger {
+class ImageFragmentViewer : Fragment(), AnkoLogger {
 
     private lateinit var mUri: Uri
 
@@ -22,22 +22,24 @@ class ImageFragmentViewer: Fragment(),AnkoLogger {
         @JvmStatic
         fun newInstance(key: Int, b: Bundle?): ImageFragmentViewer {
             val bf: Bundle = b ?: Bundle()
-            bf.putInt("fragment.key", key);
-            val fragment = ImageFragmentViewer()
-            fragment.arguments = bf
-            return fragment
+            bf.putInt("fragment.key", key)
+
+            return ImageFragmentViewer().apply {
+                arguments = bf
+            }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val b = arguments!!
-        mUri = Uri.parse(b.getString(B_ARG_URI,""))
+        mUri = Uri.parse(b.getString(B_ARG_URI, ""))
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.tb_image_preview_view_pager, container, false)
     }
@@ -45,20 +47,21 @@ class ImageFragmentViewer: Fragment(),AnkoLogger {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view_pager_iv.setImage(ImageSource.uri(mUri))
-        view_pager_iv.setOnClickListener {
-            mOnImageClickListener?.onImageClick()
+        view_pager_iv.apply {
+            setImage(ImageSource.uri(mUri))
+            setOnClickListener {
+                mOnImageClickListener?.onImageClick()
+            }
         }
     }
 
     private var mOnImageClickListener: OnImageClickListener? = null
 
-    fun setListener(listener: OnImageClickListener){
+    fun setListener(listener: OnImageClickListener) {
         mOnImageClickListener = listener
     }
 
-    interface OnImageClickListener{
+    interface OnImageClickListener {
         fun onImageClick()
     }
-
 }

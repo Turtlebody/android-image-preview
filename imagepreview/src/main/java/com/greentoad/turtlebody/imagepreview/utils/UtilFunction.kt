@@ -14,11 +14,10 @@ import org.jetbrains.anko.windowManager
 object UtilFunction {
 
     fun hasSoftKeys(context: Context): Boolean {
-        var hasSoftwareKeys = true
         //c = context; use getContext(); in fragments, and in activities you can
         //directly access the windowManager();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             val d = context.windowManager.defaultDisplay
 
             val realDisplayMetrics = DisplayMetrics()
@@ -33,12 +32,12 @@ object UtilFunction {
             val displayHeight = displayMetrics.heightPixels
             val displayWidth = displayMetrics.widthPixels
 
-            hasSoftwareKeys = realWidth - displayWidth > 0 || realHeight - displayHeight > 0
+            realWidth - displayWidth > 0 || realHeight - displayHeight > 0
         } else {
             val hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey()
             val hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
-            hasSoftwareKeys = !hasMenuKey && !hasBackKey
+
+            !hasMenuKey && !hasBackKey
         }
-        return hasSoftwareKeys
     }
 }

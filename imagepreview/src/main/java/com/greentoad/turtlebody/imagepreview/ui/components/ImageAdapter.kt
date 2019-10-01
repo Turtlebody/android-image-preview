@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.tb_image_preview_item_image.view.*
 /**
  * Created by WANGSUN on 02-May-19.
  */
-class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>(){
+class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>() {
 
     private var mData: ArrayList<Uri> = arrayListOf()
     private var mCurrentSelectedIndex = -1
@@ -22,7 +22,8 @@ class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageVewHolder {
         mContext = parent.context
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.tb_image_preview_item_image, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.tb_image_preview_item_image, parent, false)
         return ImageVewHolder(view)
     }
 
@@ -30,13 +31,13 @@ class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>(){
         return mData.size
     }
 
-    override fun onBindViewHolder(holder: ImageAdapter.ImageVewHolder, position: Int) {
-        holder.bind(mData[position],position)
+    override fun onBindViewHolder(holder: ImageVewHolder, position: Int) {
+        holder.bind(mData[position], position)
     }
 
-    fun setData(data: ArrayList<Uri>){
-        if(data.isNotEmpty())
-            mCurrentSelectedIndex=0
+    fun setData(data: ArrayList<Uri>) {
+        if (data.isNotEmpty())
+            mCurrentSelectedIndex = 0
         mData = data
         notifyDataSetChanged()
     }
@@ -57,8 +58,8 @@ class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>(){
         return mCurrentSelectedIndex
     }
 
-    inner class ImageVewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bind(pData: Uri,position: Int){
+    inner class ImageVewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(pData: Uri, position: Int) {
             Glide.with(itemView)
                 .load(pData)
                 .into(itemView.item_image_iv)
@@ -68,22 +69,26 @@ class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>(){
                 selectPosition(position)
             }
 
-            if (mCurrentSelectedIndex == position)
-                setSelected(true)
-            else
-                setSelected(false)
+            setSelected(mCurrentSelectedIndex == position)
         }
 
         private fun setSelected(isSelected: Boolean) {
             if (isSelected)
-                itemView.item_image_iv.setBackgroundColor(ContextCompat.getColor(mContext,R.color.tb_image_preview_accent))
+                itemView.item_image_iv.setBackgroundColor(
+                    ContextCompat.getColor(
+                        mContext,
+                        R.color.tb_image_preview_accent
+                    )
+                )
             else
-                itemView.item_image_iv.setBackgroundColor(ContextCompat.getColor(mContext,R.color.md_white_1000))
+                itemView.item_image_iv.setBackgroundColor(
+                    ContextCompat.getColor(
+                        mContext,
+                        R.color.md_white_1000
+                    )
+                )
         }
     }
-
-
-
 
     private var mOnRecyclerImageClickListener: OnRecyclerImageClickListener? = null
 

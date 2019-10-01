@@ -15,22 +15,24 @@ import com.greentoad.turtlebody.imagepreview.widget.inner.CheckedSavedState
  */
 class ImageViewCheckable : ImageView, Checkable {
 
-    private val CHECKED_STATE_SET = intArrayOf(android.R.attr.state_activated, android.R.attr.state_checked)
+    private val CHECKED_STATE_SET =
+        intArrayOf(android.R.attr.state_activated, android.R.attr.state_checked)
     private var mIsChecked = false
 
-    constructor(context: Context): this(context, null)
+    constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?):this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
             super(context, attrs, defStyleAttr)
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(
-            context: Context,
-            attrs: AttributeSet?,
-            defStyleAttr: Int,
-            defStyleRes: Int)
+        context: Context,
+        attrs: AttributeSet?,
+        defStyleAttr: Int,
+        defStyleRes: Int
+    )
             : super(context, attrs, defStyleAttr, defStyleRes)
 
 
@@ -61,30 +63,24 @@ class ImageViewCheckable : ImageView, Checkable {
         setChecked(!mIsChecked)
     }
 
-
     override fun performClick(): Boolean {
         toggle()
         return super.performClick()
     }
 
     override fun onSaveInstanceState(): Parcelable? {
-
         val savedStateChecked = CheckedSavedState(super.onSaveInstanceState()!!)
         savedStateChecked.mIsChecked = mIsChecked
         return savedStateChecked
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
-
         if (state !is CheckedSavedState) {
             super.onRestoreInstanceState(state)
             return
-
         }
 
         super.onRestoreInstanceState(state.superState)
         isChecked = state.mIsChecked
-
-
     }
 }
