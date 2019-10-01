@@ -38,6 +38,7 @@
         <item name="android:textSize">@dimen/font_20</item>
         <item name="android:textColor">@color/md_grey_800</item>
     </style>
+
     <style name="App.TextAppearance.h2" parent="App.Base.TextAppearance.Body1">
         <!--<item name="android:fontFamily">sans-serif-light</item>-->
         <item name="android:textSize">@dimen/font_22</item>
@@ -87,10 +88,12 @@
     <style name="MyEditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="colorControlActivated">#dc8f41</item>
     </style>
+
     <style name="MyEditTextStyle2" parent="Widget.AppCompat.EditText">
         <item name="colorControlActivated">#dc8f41</item>
         <item name="colorControlNormal">#d11472</item>
     </style>
+
     <style name="ChipTextApperance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textColor">@android:color/white</item>
     </style>

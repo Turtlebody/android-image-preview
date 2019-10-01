@@ -3,18 +3,6 @@
 
     <!--Image Picker Customization-->
     <!--Image Picker Customization-->
-    <color name="tb_image_preview_primary">#000000</color>
-    <color name="tb_image_preview_primaryDark">#707070</color>
-    <color name="tb_image_preview_accent">#2AE2FF</color>
-
-    <color name="tb_image_preview_background">#000000</color>
-    <color name="tb_image_preview_toolbar_text">#ffffff</color>
-    <color name="tb_image_preview_toolbar_counter_text">#ffffff</color>
-    <color name="tb_image_preview_toolbar_counter_background">#d9616161</color>
-
-
-
-    <!--grey-->
     <array name="greys">
         <item>@color/md_grey_500</item>
         <item>@color/md_grey_50</item>
@@ -29,6 +17,42 @@
         <item>@color/md_black_1000</item>
         <item>@color/md_white_1000</item>
     </array>
+    <array name="blue_greys">
+        <item>@color/md_blue_grey_500</item>
+        <item>@color/md_blue_grey_50</item>
+        <item>@color/md_blue_grey_100</item>
+        <item>@color/md_blue_grey_200</item>
+        <item>@color/md_blue_grey_300</item>
+        <item>@color/md_blue_grey_400</item>
+        <item>@color/md_blue_grey_600</item>
+        <item>@color/md_blue_grey_700</item>
+        <item>@color/md_blue_grey_800</item>
+        <item>@color/md_blue_grey_900</item>
+    </array>
+    <array name="texts_white">
+        <item>@color/md_text_white</item>
+        <item>@color/md_text_white_87</item>
+        <item>@color/md_secondary_text_icons_white</item>
+        <item>@color/md_disabled_hint_text_white</item>
+        <item>@color/md_divider_white</item>
+    </array>
+
+    <array name="texts_black">
+        <item>@color/md_text</item>
+        <item>@color/md_secondary_text_icons</item>
+        <item>@color/md_disabled_hint_text</item>
+        <item>@color/md_divider</item>
+    </array>
+    <color name="tb_image_preview_primary">#000000</color>
+    <color name="tb_image_preview_primaryDark">#707070</color>
+    <color name="tb_image_preview_accent">#2AE2FF</color>
+
+
+    <!--grey-->
+    <color name="tb_image_preview_background">#000000</color>
+    <color name="tb_image_preview_toolbar_text">#ffffff</color>
+    <color name="tb_image_preview_toolbar_counter_text">#ffffff</color>
+    <color name="tb_image_preview_toolbar_counter_background">#d9616161</color>
     <color name="md_grey_50">#fafafa</color>
     <color name="md_grey_100">#f5f5f5</color>
     <color name="md_grey_200">#eeeeee</color>
@@ -54,22 +78,10 @@
     <color name="md_black_1000_15">#26000000</color>
     <color name="md_black_1000_20">#33000000</color>
     <color name="md_black_1000_25">#40000000</color>
+    <!--blue grey-->
     <color name="md_black_1000_50">#80000000</color>
     <color name="md_black_1000_75">#c0000000</color>
     <color name="md_black_1000">#000000</color>
-    <!--blue grey-->
-    <array name="blue_greys">
-        <item>@color/md_blue_grey_500</item>
-        <item>@color/md_blue_grey_50</item>
-        <item>@color/md_blue_grey_100</item>
-        <item>@color/md_blue_grey_200</item>
-        <item>@color/md_blue_grey_300</item>
-        <item>@color/md_blue_grey_400</item>
-        <item>@color/md_blue_grey_600</item>
-        <item>@color/md_blue_grey_700</item>
-        <item>@color/md_blue_grey_800</item>
-        <item>@color/md_blue_grey_900</item>
-    </array>
     <color name="md_blue_grey_50">#eceff1</color>
     <color name="md_blue_grey_100">#cfd8dc</color>
     <color name="md_blue_grey_200">#b0bec5</color>
@@ -81,30 +93,16 @@
     <color name="md_blue_grey_800">#37474f</color>
     <color name="md_blue_grey_900">#263238</color>
     <color name="md_blue_grey_500_25">#40607d8b</color>
-    <color name="md_blue_grey_500_50">#80607d8b</color>
-    <color name="md_blue_grey_500_75">#c0607d8b</color>
-
 
 
     <!--Texts-->
-    <array name="texts_white">
-        <item>@color/md_text_white</item>
-        <item>@color/md_text_white_87</item>
-        <item>@color/md_secondary_text_icons_white</item>
-        <item>@color/md_disabled_hint_text_white</item>
-        <item>@color/md_divider_white</item>
-    </array>
+    <color name="md_blue_grey_500_50">#80607d8b</color>
+    <color name="md_blue_grey_500_75">#c0607d8b</color>
     <color name="md_text_white">#ffffffff</color>
     <color name="md_text_white_87">#dfffffff</color>
     <color name="md_secondary_text_icons_white">#b3ffffff</color>
     <color name="md_disabled_hint_text_white">#4dffffff</color>
     <color name="md_divider_white">#1fffffff</color>
-    <array name="texts_black">
-        <item>@color/md_text</item>
-        <item>@color/md_secondary_text_icons</item>
-        <item>@color/md_disabled_hint_text</item>
-        <item>@color/md_divider</item>
-    </array>
     <color name="md_text">#df000000</color>
     <color name="md_secondary_text_icons">#8a000000</color>
     <color name="md_disabled_hint_text">#4c000000</color>
@@ -114,14 +112,12 @@
     <color name="md_statusbar_translucent">#4000</color>
 
 
-
     <!--<color name="colorPrimary">@color/md_grey_600</color>-->
     <!--<color name="colorPrimaryDark">@color/md_grey_800</color>-->
     <!--<color name="colorPrimaryLight">@color/md_black_1000_25</color>-->
     <!--<color name="colorAccent">@color/md_grey_700</color>-->
     <!--<color name="colorAccentDark">@color/md_grey_800</color>-->
     <!--<color name="colorAccentLight">@color/md_black_1000_25</color>-->
-
 
 
     <!--Shimmer-->
@@ -134,8 +130,6 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="red">#FFD9C7</color>
-
-
 
 
 </resources>

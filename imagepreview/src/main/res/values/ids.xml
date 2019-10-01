@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="id" name="tb_image_preview_parent_layout" />
+    <item name="tb_image_preview_parent_layout" type="id" />
 </resources>
