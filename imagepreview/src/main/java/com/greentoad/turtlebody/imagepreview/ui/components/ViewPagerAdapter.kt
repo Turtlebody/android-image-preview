@@ -26,6 +26,7 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
             object : ImageFragmentViewer.OnImageClickListener {
                 override fun onImageClick() {
                     mOnViewPagerClickListener?.onViewPagerClick()
+
                 }
             }
         )

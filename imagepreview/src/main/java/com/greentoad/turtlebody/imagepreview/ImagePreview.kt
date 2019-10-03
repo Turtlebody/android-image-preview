@@ -211,7 +211,7 @@ class ImagePreview {
             val transaction = fragmentManager.beginTransaction()
             transaction.add(android.R.id.content, newFragment)
                 .addToBackStack(null)
-                .commit()
+                .commitAllowingStateLoss()
 
             mFragment = newFragment
         }
