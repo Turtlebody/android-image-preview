@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
         android:id="@+id/view_pager_iv"
         android:layout_width="match_parent"

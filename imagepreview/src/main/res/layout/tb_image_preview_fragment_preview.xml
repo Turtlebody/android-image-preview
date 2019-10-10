@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/preview_fragment_parent_fl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
-            <TextView
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/preview_fragment_toolbar_txt_count"
                 android:layout_width="@dimen/length_36"
                 android:layout_height="wrap_content"
@@ -50,7 +49,7 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/preview_fragment_bottom_ll"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
@@ -60,7 +59,7 @@
         android:gravity="center_vertical">
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/preview_fragment_main_add_btn"
             android:layout_width="@dimen/length_28"
             android:layout_height="@dimen/length_28"
@@ -103,8 +102,7 @@
         </FrameLayout>
 
 
-
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/preview_fragment_iv_done"
             android:layout_width="@dimen/length_36"
             android:layout_height="@dimen/length_36"
@@ -112,7 +110,7 @@
             android:background="@drawable/tb_image_preview_dr_rect_round_accent"
             android:padding="@dimen/offset_8"
             android:layout_margin="@dimen/offset_12" />
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <include layout="@layout/tb_image_preview_frame_progress" />
 

@@ -6,7 +6,7 @@
     android:layout_gravity="center_vertical"
     android:layout_margin="@dimen/offset_2">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:padding="@dimen/offset_2"
         android:id="@+id/item_image_iv"
         android:layout_width="@dimen/length_44"
