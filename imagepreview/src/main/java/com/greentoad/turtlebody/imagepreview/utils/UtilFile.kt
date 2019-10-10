@@ -24,39 +24,58 @@ object UtilFile {
         var selection: String? = null
         var selectionArgs: Array<String>? = null
         // Uri is different in versions after KITKAT (Android 4.4), we need to
-        if (Build.VERSION.SDK_INT >= 19 && DocumentsContract.isDocumentUri(context.applicationContext, uri)) {
-            if (isExternalStorageDocument(uri)) {
-                val docId = DocumentsContract.getDocumentId(uri)
-                val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
-            } else if (isDownloadsDocument(uri)) {
-                val id = DocumentsContract.getDocumentId(uri)
-                uri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id))
-            } else if (isMediaDocument(uri)) {
-                val docId = DocumentsContract.getDocumentId(uri)
-                val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val type = split[0]
-                if ("image" == type) {
-                    uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                } else if ("video" == type) {
-                    uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                } else if ("audio" == type) {
-                    uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+        if (Build.VERSION.SDK_INT >= 19 && DocumentsContract.isDocumentUri(
+                context.applicationContext,
+                uri
+            )
+        ) {
+            when {
+                isExternalStorageDocument(uri) -> {
+                    val docId = DocumentsContract.getDocumentId(uri)
+                    val split =
+                        docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
                 }
-                selection = "_id=?"
-                selectionArgs = arrayOf(split[1])
+                isDownloadsDocument(uri) -> {
+                    val id = DocumentsContract.getDocumentId(uri)
+                    uri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"),
+                        java.lang.Long.valueOf(id)
+                    )
+                }
+                isMediaDocument(uri) -> {
+                    val docId = DocumentsContract.getDocumentId(uri)
+                    val split =
+                        docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val type = split[0]
+                    if ("image" == type) {
+                        uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    } else if ("video" == type) {
+                        uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    } else if ("audio" == type) {
+                        uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
+                    selection = "_id=?"
+                    selectionArgs = arrayOf(split[1])
+                }
             }
         }
         if ("content".equals(uri.scheme!!, ignoreCase = true)) {
             val projection = arrayOf(MediaStore.Images.Media.DATA)
-            val cursor: Cursor?
+            var cursor: Cursor? = null
             try {
-                cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-                val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                cursor =
+                    context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+                val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
                 if (cursor.moveToFirst()) {
-                    return cursor.getString(column_index)
+                    return cursor.getString(columnIndex)
                 }
             } catch (e: Exception) {
+            } finally {
+                cursor?.let {
+                    if (!it.isClosed)
+                        it.close()
+                }
             }
 
         } else if ("file".equals(uri.scheme!!, ignoreCase = true)) {

@@ -13,23 +13,23 @@ import java.lang.reflect.InvocationTargetException
 /**
  * Created by WANGSUN on 08-May-19.
  */
-abstract class FragmentBase: DialogFragment(),AnkoLogger {
+abstract class FragmentBase : DialogFragment(), AnkoLogger {
 
 
     @Deprecated("return value in physical-bottom-navigational devices")
-    private fun getBottomNavigationalBarHeight(context: Context): Int{
+    private fun getBottomNavigationalBarHeight(context: Context): Int {
         val resources = context.resources
         val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        if (resourceId > 0) {
+        return if (resourceId > 0) {
             info { "bottomHeight: ${resources.getDimensionPixelSize(resourceId)}" }
-            return resources.getDimensionPixelSize(resourceId)
+            resources.getDimensionPixelSize(resourceId)
         } else {
             info { "bottomHeight: 0" }
-            return 0
+            0
         }
     }
 
-    fun getStatusBarHeight(): Int{
+    fun getStatusBarHeight(): Int {
         var result = 0
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resourceId > 0) {
@@ -70,10 +70,12 @@ abstract class FragmentBase: DialogFragment(),AnkoLogger {
 
         if (Build.VERSION.SDK_INT >= 17) {
             display.getRealSize(size)
-        } else  { //if (Build.VERSION.SDK_INT >= 14)
+        } else { //if (Build.VERSION.SDK_INT >= 14)
             try {
-                size.x = Display::class.java.getMethod("getRawWidth").invoke(display) as Int
-                size.y = Display::class.java.getMethod("getRawHeight").invoke(display) as Int
+                size.apply {
+                    x = Display::class.java.getMethod("getRawWidth").invoke(display) as Int
+                    y = Display::class.java.getMethod("getRawHeight").invoke(display) as Int
+                }
             } catch (e: IllegalAccessException) {
             } catch (e: InvocationTargetException) {
             } catch (e: NoSuchMethodException) {

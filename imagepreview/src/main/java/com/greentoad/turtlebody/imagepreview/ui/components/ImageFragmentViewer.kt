@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.tb_image_preview_view_pager.*
 import org.jetbrains.anko.AnkoLogger
 
 
-class ImageFragmentViewer: Fragment(),AnkoLogger {
+class ImageFragmentViewer : Fragment(), AnkoLogger {
 
     private lateinit var mUri: Uri
 
@@ -32,15 +32,12 @@ class ImageFragmentViewer: Fragment(),AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val b = arguments!!
-        mUri = Uri.parse(b.getString(B_ARG_URI,""))
+        mUri = Uri.parse(b.getString(B_ARG_URI, ""))
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.tb_image_preview_view_pager, container, false)
-    }
+                              savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.tb_image_preview_view_pager, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,12 +50,11 @@ class ImageFragmentViewer: Fragment(),AnkoLogger {
 
     private var mOnImageClickListener: OnImageClickListener? = null
 
-    fun setListener(listener: OnImageClickListener){
+    fun setListener(listener: OnImageClickListener) {
         mOnImageClickListener = listener
     }
 
-    interface OnImageClickListener{
+    interface OnImageClickListener {
         fun onImageClick()
     }
-
 }

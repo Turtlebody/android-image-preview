@@ -52,15 +52,11 @@ class ImageViewCheckable : ImageView, Checkable {
         }
     }
 
-    override fun isChecked(): Boolean {
-
-        return mIsChecked
-    }
+    override fun isChecked() = mIsChecked
 
     override fun toggle() {
-        setChecked(!mIsChecked)
+        isChecked = !mIsChecked
     }
-
 
     override fun performClick(): Boolean {
         toggle()
@@ -68,14 +64,12 @@ class ImageViewCheckable : ImageView, Checkable {
     }
 
     override fun onSaveInstanceState(): Parcelable? {
-
         val savedStateChecked = CheckedSavedState(super.onSaveInstanceState()!!)
         savedStateChecked.mIsChecked = mIsChecked
         return savedStateChecked
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
-
         if (state !is CheckedSavedState) {
             super.onRestoreInstanceState(state)
             return
@@ -84,7 +78,5 @@ class ImageViewCheckable : ImageView, Checkable {
 
         super.onRestoreInstanceState(state.superState)
         isChecked = state.mIsChecked
-
-
     }
 }
