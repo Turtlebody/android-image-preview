@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.greentoad.turtlebody.imagepreview.R
 import kotlinx.android.synthetic.main.tb_image_preview_item_image.view.*
 
 /**
  * Created by WANGSUN on 02-May-19.
  */
-class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>() {
+class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>() {
+
 
     private var mData: ArrayList<Uri> = arrayListOf()
     private var mCurrentSelectedIndex = -1
@@ -62,6 +65,10 @@ class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>() {
         fun bind(pData: Uri, position: Int) {
             Glide.with(itemView)
                 .load(pData)
+                .apply(
+                    RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                )
                 .into(itemView.item_image_iv)
 
             itemView.setOnClickListener {
@@ -92,7 +99,6 @@ class ImageAdapter() : RecyclerView.Adapter<ImageAdapter.ImageVewHolder>() {
                 )
         }
     }
-
 
     private var mOnRecyclerImageClickListener: OnRecyclerImageClickListener? = null
 

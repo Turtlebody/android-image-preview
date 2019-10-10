@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
 import com.greentoad.turtlebody.imagepreview.core.ImagePreviewConfig
 import com.greentoad.turtlebody.imagepreview.ui.components.FragmentBase
 import com.greentoad.turtlebody.imagepreview.ui.components.ImageAdapter
@@ -347,9 +348,20 @@ class ImagePreview {
         }
 
         private fun onBackPressed() {
+            clearGlideCache()
             mOnPreviewFragmentListener?.onBackPressed()
             //this.dismiss()
             fragmentManager?.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
+
+        private fun clearGlideCache() {
+            context?.let {
+                Glide.get(it).clearMemory()
+
+                Thread(Runnable {
+                    Glide.get(it).clearDiskCache()
+                }).start()
+            }
         }
 
         private fun show() {
