@@ -328,12 +328,10 @@ class ImagePreview {
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
 
-            if(mPreviewConfig.mUriList.size<2){
+            if(mPreviewConfig.mDisplayThumbnailLowerBar){
+                preview_fragment_bottom_ll.visibility = View.VISIBLE
+            }else{
                 preview_fragment_bottom_ll.visibility = View.GONE
-//                preview_fragment_main_add_btn.visibility = View.GONE
-//                preview_fragment_recyclerview_horizontal.visibility = View.GONE
-//                preview_fragment_right_shadow.visibility = View.GONE
-//                preview_fragment_left_shadow.visibility = View.GONE
             }
         }
 

@@ -8,6 +8,7 @@ import java.io.Serializable
  */
 class ImagePreviewConfig: Serializable {
     var mAllowAddButton: Boolean = false
+    var mDisplayThumbnailLowerBar: Boolean = true
     private set // the setter is private and has the default implementation
 
     companion object{
@@ -22,6 +23,14 @@ class ImagePreviewConfig: Serializable {
      */
     fun setAllowAddButton(value: Boolean): ImagePreviewConfig{
         mAllowAddButton = value
+        return this
+    }
+
+    /**
+     * @param value: false to hide add button, true to show add button
+     */
+    fun setDisplayThumbnailLowerBar(value: Boolean): ImagePreviewConfig{
+        mDisplayThumbnailLowerBar = value
         return this
     }
 
