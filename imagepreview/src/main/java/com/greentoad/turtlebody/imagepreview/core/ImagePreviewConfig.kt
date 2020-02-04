@@ -11,7 +11,7 @@ class ImagePreviewConfig: Serializable {
     private set // the setter is private and has the default implementation
 
     companion object{
-        val ARG_BUNDLE = javaClass.canonicalName + ".bundle_arg"
+        val ARG_BUNDLE = ImagePreviewConfig::class.java.name + ".bundle_arg"
     }
 
     var mUriList: ArrayList<Uri> = arrayListOf()

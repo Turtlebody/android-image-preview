@@ -45,8 +45,6 @@ class ImagePreview {
 
     class ImagePreviewImpl(activity: FragmentActivity) : PreviewFragment.OnPreviewFragmentListener, AnkoLogger {
 
-        private var flag: Int = 0
-
         private var mNavigationalBarColor: Int? = null
         private var mOriginalFlag: Int? = null
         private var mStatusBarColor: Int? = null
@@ -76,29 +74,6 @@ class ImagePreview {
 
         override fun onBackPressed() {
             setOriginalState()
-        }
-
-//        override fun onPagerClicked(isVisible: Boolean) {
-//            if (isVisible) { show() }
-//            else { hide() }
-//        }
-
-        private fun show() {
-            mActivity.get()?.window?.decorView?.systemUiVisibility = flag or
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        }
-
-        private fun hide() {
-            mActivity.get()?.let {
-                flag = it.window.decorView.systemUiVisibility
-                it.window.decorView.systemUiVisibility =
-                    View.SYSTEM_UI_FLAG_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            }
-
         }
 
         fun dismissImagePreview(){
@@ -177,11 +152,6 @@ class ImagePreview {
                     }
                 }
             }
-//            flag?.let {
-//                mActivity.get()?.window?.decorView?.systemUiVisibility = it or
-//                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-//                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//            }
         }
 
         private fun initStatusBar() {
@@ -243,7 +213,6 @@ class ImagePreview {
 
         private lateinit var mAdapterPager: ViewPagerAdapter
         private lateinit var mAdapterRecycler: ImageAdapter
-//        private var mList: ArrayList<Uri> = arrayListOf()
         private var mTopBottomBarIsVisible = true
         private var mPreviewConfig: ImagePreviewConfig = ImagePreviewConfig()
 
@@ -330,10 +299,6 @@ class ImagePreview {
 
             if(mPreviewConfig.mUriList.size<2){
                 preview_fragment_bottom_ll.visibility = View.GONE
-//                preview_fragment_main_add_btn.visibility = View.GONE
-//                preview_fragment_recyclerview_horizontal.visibility = View.GONE
-//                preview_fragment_right_shadow.visibility = View.GONE
-//                preview_fragment_left_shadow.visibility = View.GONE
             }
         }
 
@@ -344,7 +309,6 @@ class ImagePreview {
 
         private fun onBackPressed(){
             mOnPreviewFragmentListener?.onBackPressed()
-            //this.dismiss()
             fragmentManager?.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
@@ -403,14 +367,12 @@ class ImagePreview {
             mAdapterPager.setData(mPreviewConfig.mUriList)
             mAdapterPager.setListener(object : ViewPagerAdapter.OnViewPagerClickListener {
                 override fun onViewPagerClick() {
-                    if (mTopBottomBarIsVisible) {
+                    mTopBottomBarIsVisible = if (mTopBottomBarIsVisible) {
                         hide()
-                        mTopBottomBarIsVisible = false
-                        //mOnPreviewFragmentListener?.onPagerClicked(false)
+                        false
                     } else {
                         show()
-                        mTopBottomBarIsVisible = true
-                        //mOnPreviewFragmentListener?.onPagerClicked(true)
+                        true
                     }
                 }
             })
@@ -449,7 +411,6 @@ class ImagePreview {
         interface OnPreviewFragmentListener {
             fun onDone(data: ArrayList<Uri>)
             fun onBackPressed()
-            //fun onPagerClicked(isVisible: Boolean)
             fun onAddBtnClicked()
         }
     }
