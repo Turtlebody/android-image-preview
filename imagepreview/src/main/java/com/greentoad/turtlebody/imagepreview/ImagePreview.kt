@@ -45,8 +45,6 @@ class ImagePreview {
 
     class ImagePreviewImpl(activity: FragmentActivity) : PreviewFragment.OnPreviewFragmentListener, AnkoLogger {
 
-        private var flag: Int = 0
-
         private var mNavigationalBarColor: Int? = null
         private var mOriginalFlag: Int? = null
         private var mStatusBarColor: Int? = null
@@ -388,14 +386,12 @@ class ImagePreview {
             mAdapterPager.setData(mPreviewConfig.getUris())
             mAdapterPager.setListener(object : ViewPagerAdapter.OnViewPagerClickListener {
                 override fun onViewPagerClick() {
-                    if (mTopBottomBarIsVisible) {
+                    mTopBottomBarIsVisible = if (mTopBottomBarIsVisible) {
                         hide()
-                        mTopBottomBarIsVisible = false
-                        //mOnPreviewFragmentListener?.onPagerClicked(false)
+                        false
                     } else {
                         show()
-                        mTopBottomBarIsVisible = true
-                        //mOnPreviewFragmentListener?.onPagerClicked(true)
+                        true
                     }
                 }
             })
@@ -434,7 +430,6 @@ class ImagePreview {
         interface OnPreviewFragmentListener {
             fun onDone(data: ArrayList<Uri>)
             fun onBackPressed()
-            //fun onPagerClicked(isVisible: Boolean)
             fun onAddBtnClicked()
         }
     }
