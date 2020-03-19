@@ -76,24 +76,6 @@ class ImagePreview {
             setOriginalState()
         }
 
-        private fun show() {
-            mActivity.get()?.window?.decorView?.systemUiVisibility = flag or
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        }
-
-        private fun hide() {
-            mActivity.get()?.let {
-                flag = it.window.decorView.systemUiVisibility
-                it.window.decorView.systemUiVisibility =
-                    View.SYSTEM_UI_FLAG_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            }
-
-        }
-
         fun dismissImagePreview(){
             if(mFragment!=null){
                 setOriginalState()
@@ -299,6 +281,7 @@ class ImagePreview {
             }
             preview_fragment_iv_done.setOnClickListener {
                 mOnPreviewFragmentListener?.onDone(mPreviewConfig.getUris())
+                onBackPressed()
             }
 
             preview_fragment_activity_toolbar.setNavigationOnClickListener {
@@ -314,9 +297,7 @@ class ImagePreview {
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
 
-            if(mPreviewConfig.mDisplayThumbnailLowerBar){
-                preview_fragment_bottom_ll.visibility = View.VISIBLE
-            }else{
+            if(!mPreviewConfig.mDisplayThumbnailLowerBar || mPreviewConfig.mUriList.size<2){
                 preview_fragment_bottom_ll.visibility = View.GONE
             }
         }
