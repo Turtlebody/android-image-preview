@@ -368,7 +368,10 @@ class ImagePreview {
             mAdapterPager.setListener(object : ViewPagerAdapter.OnViewPagerClickListener {
                 override fun onViewPagerClick() {
                     mTopBottomBarIsVisible = if (mTopBottomBarIsVisible) {
-                        hide()
+                        try {
+                            hide()
+                        }catch (e:IllegalStateException){
+                        }
                         false
                     } else {
                         show()
