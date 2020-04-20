@@ -297,7 +297,9 @@ class ImagePreview {
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
 
-            if(!mPreviewConfig.mDisplayThumbnailLowerBar || mPreviewConfig.mUriList.size<2){
+            if(mPreviewConfig.mDisplayThumbnailLowerBar){
+                preview_fragment_bottom_ll.visibility = View.VISIBLE
+            }else{
                 preview_fragment_bottom_ll.visibility = View.GONE
             }
         }
