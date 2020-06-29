@@ -94,7 +94,7 @@ class ImagePreview {
 
 
         private fun hideDefaultToolbar() {
-           // flag = mActivity.get()?.window?.decorView?.systemUiVisibility
+            // flag = mActivity.get()?.window?.decorView?.systemUiVisibility
             mActivity.get()?.let {
                 if (it is AppCompatActivity) {
                     if(it.supportActionBar == null){
@@ -280,7 +280,7 @@ class ImagePreview {
                 mOnPreviewFragmentListener?.onAddBtnClicked()
             }
             preview_fragment_iv_done.setOnClickListener {
-                mOnPreviewFragmentListener?.onDone(mPreviewConfig.mUriList)
+                mOnPreviewFragmentListener?.onDone(mPreviewConfig.getUris())
                 onBackPressed()
             }
 
@@ -297,7 +297,9 @@ class ImagePreview {
                 preview_fragment_main_add_btn.visibility = View.GONE
             }
 
-            if(mPreviewConfig.mUriList.size<2){
+            if(mPreviewConfig.mDisplayThumbnailLowerBar){
+                preview_fragment_bottom_ll.visibility = View.VISIBLE
+            }else{
                 preview_fragment_bottom_ll.visibility = View.GONE
             }
         }
@@ -334,7 +336,7 @@ class ImagePreview {
             mUiVisibilityFlag = preview_fragment_parent_fl.systemUiVisibility
             preview_fragment_parent_fl.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
-                       //View.SYSTEM_UI_FLAG_LAYOUT_STABLE or //to get stable view this mUiVisibilityFlag sometime add views which disrupt our original views
+                        //View.SYSTEM_UI_FLAG_LAYOUT_STABLE or //to get stable view this mUiVisibilityFlag sometime add views which disrupt our original views
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -352,7 +354,7 @@ class ImagePreview {
         private fun initAdapter() {
             /*recycler view*/
             mAdapterRecycler = ImageAdapter()
-            mAdapterRecycler.setData(mPreviewConfig.mUriList)
+            mAdapterRecycler.setData(mPreviewConfig.getUris())
             mAdapterRecycler.setListener(object : ImageAdapter.OnRecyclerImageClickListener {
                 override fun onRecyclerImageClick(index: Int) {
                     preview_fragment_viewpager.currentItem = index
@@ -364,11 +366,14 @@ class ImagePreview {
 
             /*view pager*/
             mAdapterPager = ViewPagerAdapter(childFragmentManager)
-            mAdapterPager.setData(mPreviewConfig.mUriList)
+            mAdapterPager.setData(mPreviewConfig.getUris())
             mAdapterPager.setListener(object : ViewPagerAdapter.OnViewPagerClickListener {
                 override fun onViewPagerClick() {
                     mTopBottomBarIsVisible = if (mTopBottomBarIsVisible) {
-                        hide()
+                        try {
+                            hide()
+                        }catch (e:IllegalStateException){
+                        }
                         false
                     } else {
                         show()
