@@ -10,7 +10,7 @@
     android:clickable="true"
     android:focusable="true">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.greentoad.turtlebody.imagepreview.ImageViewPager
         android:id="@+id/preview_fragment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
