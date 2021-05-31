@@ -2,6 +2,9 @@
 <resources>
 
     <!--Image Picker Customization-->
+    <color name="tb_media_picker_primary">#FFFFFF</color>
+    <color name="tb_media_picker_primaryDark">#707070</color>
+    <color name="tb_media_picker_accent">#2AE2FF</color>
     <!--Image Picker Customization-->
     <color name="tb_image_preview_primary">#000000</color>
     <color name="tb_image_preview_primaryDark">#707070</color>
