@@ -373,6 +373,7 @@ class ImagePreview {
                         try {
                             hide()
                         }catch (e:IllegalStateException){
+                        }catch (e:NullPointerException){
                         }
                         false
                     } else {
