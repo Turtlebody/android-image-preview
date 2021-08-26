@@ -1,11 +1,11 @@
 ![](https://thedroid.io/assets/img/tb-image-preview.png)
 
 ![API](https://img.shields.io/badge/API-16%2B-34bf49.svg)
-[ ![Download](https://api.bintray.com/packages/greentoad/android-image-preview/com.greentoad.turtlebody.imagepreview/images/download.svg?version=latest) ](https://bintray.com/greentoad/android-image-preview/com.greentoad.turtlebody.imagepreview/latest/link)
 
 
 ### Demo:
-![](https://media.giphy.com/media/SXxdWquu9zlLiHIuc2/giphy.gif)
+![Screenshot_1629961047](https://user-images.githubusercontent.com/9129812/130916268-004b5d8e-17ec-42aa-824c-b718d333b5e4.png)
+
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt="Get it on Google Play"
