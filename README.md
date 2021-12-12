@@ -1,4 +1,4 @@
- ## this is deprecated. Please use other library like: 
+ ## This is deprecated. Please use other library like: 
 - [StfalconImageViewer](https://github.com/stfalcon-studio/StfalconImageViewer)
 - [BigImageViewer](https://github.com/Piasy/BigImageViewer)
 
