@@ -1,3 +1,11 @@
+ ## this is deprecated. Please use other library like: 
+- [StfalconImageViewer](https://github.com/stfalcon-studio/StfalconImageViewer)
+- [BigImageViewer](https://github.com/Piasy/BigImageViewer)
+
+
+---
+
+
 ![](https://thedroid.io/assets/img/tb-image-preview.png)
 
 ![API](https://img.shields.io/badge/API-16%2B-34bf49.svg)
